@@ -1,0 +1,24 @@
+{
+  "name": "forester",
+  "version": "0.0.1",
+  "description": "Rest API",
+  "scripts": {
+    "test": "ava test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/foresterjs/forester.git"
+  },
+  "keywords": [
+    "rest",
+    "api"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/foresterjs/forester/issues"
+  },
+  "homepage": "https://github.com/foresterjs/forester#readme",
+  "devDependencies": {
+    "ava": "^0.2.0"
+  }
+}

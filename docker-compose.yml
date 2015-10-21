@@ -1,0 +1,6 @@
+web:
+  image: node
+  volumes:
+    - ".:/usr/src/app"
+  dns: 8.8.8.8
+  working_dir: /usr/src/app
