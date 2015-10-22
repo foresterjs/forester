@@ -4,3 +4,10 @@ web:
     - ".:/usr/src/app"
   dns: 8.8.8.8
   working_dir: /usr/src/app
+  links:
+    - db
+
+db:
+  image: mongo
+  ports:
+    - "27017:27017"
