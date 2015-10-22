@@ -1,0 +1,24 @@
+{
+  "name": "users",
+  "description": "bla bla bla",
+  "parent": "ModelBase",
+  "properties": {
+    "name": {
+      "type": "String",
+      "default": "Pippo"
+    },
+    "surname": {
+      "type": "String"
+    },
+    "cap": {
+      "type": "String"
+    },
+    "age": {
+      "type": "number"
+    }
+  },
+  "validators": {
+  },
+  "sanitizers": {
+  }
+}

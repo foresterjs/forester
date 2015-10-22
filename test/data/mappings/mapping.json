@@ -1,0 +1,11 @@
+{
+  "Users": "db-roma",
+  "Products": "db-roma",
+  "Category": "db-milano"
+}
+
+
+{
+        collection: users
+        datasource: db-rome
+}
