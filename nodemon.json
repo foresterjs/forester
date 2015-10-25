@@ -1,0 +1,13 @@
+{
+  "execMap": {
+    "js": "babel-node --harmony"
+  },
+  "script": "app.js",
+  "watch": [
+    "lib/",
+    "example.js"
+  ],
+  "verbose": true,
+  "ext": "js json",
+  "legacyWatch": true
+}

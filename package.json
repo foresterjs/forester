@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Rest API",
   "scripts": {
+    "start-example": "nodemon --harmony example.js",
     "test": "ava test/*.js"
   },
   "repository": {
@@ -19,7 +20,10 @@
   },
   "homepage": "https://github.com/foresterjs/forester#readme",
   "devDependencies": {
-    "ava": "^0.2.0"
+    "ava": "^0.2.0",
+    "babel": "^5.8.29",
+    "koa": "^1.1.1",
+    "nodemon": "^1.8.0"
   },
   "dependencies": {
     "promised-mongo": "^1.2.0"
