@@ -1,16 +1,5 @@
 "use strict";
 
-var koa = require('koa');
-var Forester = require('./lib/forester.js');
-
-
-var app = koa();
-var forester = new Forester();
-app.experimental = true;
-
-
-
-
 //example config
 var usersCollection = {
     "name":"users"
@@ -42,16 +31,21 @@ var mappings = [
 //end example config
 
 
+
+
+var Forester = require('./lib/forester.js');
+var app = new Forester();
+
 //example registration
-forester.registerCollection(usersCollection);
-forester.registerCollection(articlesCollection);
-forester.registerDataSource(dataSource);
-forester.registerMapping(mappings[0]);
-forester.registerMapping(mappings[1]);
+app.registerCollection(usersCollection);
+app.registerCollection(articlesCollection);
+app.registerDataSource(dataSource);
+app.registerMapping(mappings[0]);
+app.registerMapping(mappings[1]);
 //end registration
 
 
-forester.boot(app);
-
+app.boot();
 
 app.listen(3000);
+
