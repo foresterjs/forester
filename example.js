@@ -2,7 +2,6 @@
 
 var Forester = require('./lib/forester.js');
 var app = new Forester();
-var fs = require('fs');
 
 
 app.registerCollection(require('./test/data/collections/users.json'));
