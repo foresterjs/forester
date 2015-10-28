@@ -1,8 +1,9 @@
 {
   "name": "forester",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Rest API",
   "scripts": {
+    "index": "lib/forester.js",
     "start-example": "nodemon --harmony example.js",
     "test": "ava test/*.js"
   },
