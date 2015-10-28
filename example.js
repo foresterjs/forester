@@ -13,19 +13,12 @@ var dataSource = {
     }
 };
 
-var mappings = require('./test/data/mappings/mapping.json');
-//end example config
 
 
-
-//example registration
 app.registerCollection(require('./test/data/collections/users.json'));
 app.registerCollection(require('./test/data/collections/articles.json'));
 app.registerDataSource(dataSource);
-app.registerMapping(mappings[0]);
-app.registerMapping(mappings[1]);
-
-//end registration
+app.registerMappings(require('./test/data/mappings/mapping.json'));
 
 
 app.boot();
