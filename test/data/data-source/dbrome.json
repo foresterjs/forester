@@ -1,0 +1,7 @@
+{
+  "name": "dbrome",
+  "adapter": "mongo",
+  "options": {
+    "connectionUri": "mongodb://forester_db_1:27017"
+  }
+}

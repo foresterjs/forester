@@ -1,7 +1,0 @@
-{
-  "name": "db-roma",
-  "adapter": "mongo",
-  "options": {
-    "connectionUri": "mongo://"
-  }
-}
