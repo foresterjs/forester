@@ -1,13 +1,8 @@
 "use strict";
 
-//example config
-var usersCollection = {
-    "name":"users"
-};
-
-var articlesCollection = {
-    "name":"articles"
-};
+var Forester = require('./lib/forester.js');
+var app = new Forester();
+var fs = require('fs');
 
 
 var dataSource = {
@@ -18,30 +13,18 @@ var dataSource = {
     }
 };
 
-var mappings = [
-    {
-        "collection": "users",
-        "datasource": "dbrome"
-    },
-    {
-        "collection": "articles",
-        "datasource": "dbrome"
-    }
-];
+var mappings = require('./test/data/mappings/mapping.json');
 //end example config
 
 
 
-
-var Forester = require('./lib/forester.js');
-var app = new Forester();
-
 //example registration
-app.registerCollection(usersCollection);
-app.registerCollection(articlesCollection);
+app.registerCollection(require('./test/data/collections/users.json'));
+app.registerCollection(require('./test/data/collections/articles.json'));
 app.registerDataSource(dataSource);
 app.registerMapping(mappings[0]);
 app.registerMapping(mappings[1]);
+
 //end registration
 
 
