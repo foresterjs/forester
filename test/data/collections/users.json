@@ -17,6 +17,13 @@
       "type": "number"
     }
   },
+  "relations":{
+    "bestArticle": {
+      "type": "BelongsTo",
+      "collection": "articles",
+      "foreignKey": "articlesId"
+    }
+  },
   "validators": {
   },
   "sanitizers": {
