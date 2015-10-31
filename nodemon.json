@@ -5,6 +5,7 @@
   "script": "app.js",
   "watch": [
     "lib/",
+    "lib/middlewares/",
     "example.js"
   ],
   "verbose": true,
