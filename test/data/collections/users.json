@@ -4,14 +4,14 @@
   "parent": "ModelBase",
   "properties": {
     "name": {
-      "type": "String",
-      "default": "Pippo"
+      "type": "string",
+      "default": "pippo"
     },
     "surname": {
-      "type": "String"
+      "type": "string"
     },
     "cap": {
-      "type": "String"
+      "type": "string"
     },
     "age": {
       "type": "number"
@@ -19,12 +19,12 @@
   },
   "relations":{
     "bestArticle": {
-      "type": "BelongsTo",
+      "type": "belongsTo",
       "collection": "articles",
       "foreignKey": "articlesId"
     },
     "authoredArticles": {
-      "type": "HasMany",
+      "type": "hasMany",
       "collection": "articles",
       "foreignKey": "authorId"
     }
