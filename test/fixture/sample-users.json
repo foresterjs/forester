@@ -1,22 +1,17 @@
 [
   {
-    "_id": "user1",
     "name": "alice",
-    "surname": "rossi",
-    "bestArticleId": "article1"
+    "surname": "rossi"
   },
   {
-    "_id": "user2",
     "name": "bob",
     "surname": "verdi"
   },
   {
-    "_id": "user3",
     "name": "cindy",
     "surname": "neri"
   },
   {
-    "_id": "user4",
     "name": "eric",
     "surname": "gialli"
   }

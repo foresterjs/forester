@@ -15,25 +15,33 @@ var host = 'http://localhost:' + port;
 describe('forester crud', function () {
 
     var db;
-    var items;
     var app;
+
+    var users;
     var articles;
 
     before('generate db', async function (done) {
         db = pmongo(connString);
         await db.dropDatabase();
 
-        items = await db.collection('users').insert(require('./fixture/sample-users.json'));
+        users = await db.collection('users').insert(require('./fixture/sample-users.json'));
         articles = await db.collection('articles').insert(require('./fixture/sample-articles.json'));
 
-        items = items.map(function(item){
+        users = users.map(function (item) {
             item._id = item._id.toString();
             return item;
         });
 
-        articles = articles.map(function(item){
+        articles = articles.map(function (item) {
             item._id = item._id.toString();
             return item;
+        });
+
+
+        users[0].bestArticleId = articles[0]._id;
+        await db.collection('users').findAndModify({
+            query: {_id: new pmongo.ObjectId(users[0]._id)},
+            update: {$set: {bestArticleId: articles[0]._id}}
         });
 
         done();
@@ -73,12 +81,19 @@ describe('forester crud', function () {
     });
 
 
-
     it('should return users', function (done) {
         request(host)
             .get('/users')
             .set('Accept', 'application/json')
-            .expect(200, items, done);
+            .expect(200, users, done);
+    });
+
+
+    it('should return bestArticle', function (done) {
+        request(host)
+            .get('/users/'+users[0]._id + '/bestArticle')
+            .set('Accept', 'application/json')
+            .expect(200, articles[0], done);
     });
 
 
