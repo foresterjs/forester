@@ -89,7 +89,7 @@ describe('forester crud', function () {
     });
 
 
-    it('should return bestArticle', function (done) {
+    it('should return bestArticle (hasOne)', function (done) {
         request(host)
             .get('/users/'+users[0]._id + '/bestArticle')
             .set('Accept', 'application/json')
