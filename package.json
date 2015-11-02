@@ -5,7 +5,7 @@
   "scripts": {
     "index": "lib/forester.js",
     "start-example": "nodemon --harmony example.js",
-    "test": "ava test/*.js"
+    "test": "mocha --compilers js:babel-core/register"
   },
   "repository": {
     "type": "git",
@@ -21,9 +21,13 @@
   },
   "homepage": "https://github.com/foresterjs/forester#readme",
   "devDependencies": {
-    "ava": "^0.2.0",
     "babel": "^5.8.29",
-    "nodemon": "^1.8.0"
+    "babel-core": "^5.8.29",
+    "mocha": "^2.3.3",
+    "nodemon": "^1.8.0",
+    "should": "^7.1.1",
+    "supertest": "^1.1.0",
+    "superagent": "^1.4.0"
   },
   "dependencies": {
     "body-parser": "^1.14.1",

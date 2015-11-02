@@ -1,0 +1,53 @@
+{
+  "collectionArticles": {
+    "name": "articles"
+  },
+  "collectionUsers": {
+    "name": "users",
+    "properties": {
+      "name": {
+        "type": "string"
+      },
+      "surname": {
+        "type": "string"
+      }
+    },
+    "relations": {
+    }
+  },
+  "dataSource": {
+    "name": "mongo",
+    "adapter": "mongo",
+    "options": {
+      "connectionUri": "mongodb://forester_db_1:27017/forester_test"
+    }
+  },
+  "mappings": [
+    {
+      "collection": "users",
+      "datasource": "mongo"
+    },
+    {
+      "collection": "articles",
+      "datasource": "mongo"
+    }
+  ],
+  "userData": [
+    {
+      "name": "alice",
+      "surname": "rossi"
+    },
+    {
+      "name": "bob",
+      "surname": "verdi"
+    },
+    {
+      "name": "cindy",
+      "surname": "neri"
+    },
+    {
+      "name": "eric",
+      "surname": "gialli"
+    }
+  ]
+}
