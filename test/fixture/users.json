@@ -25,6 +25,13 @@
       "type": "hasOne",
       "collection": "articles",
       "foreignKey": "bestArticleId"
+    },
+    "likedArticles": {
+      "type": "hasAndBelongsToMany",
+      "collection": "articles",
+      "through": "joinArticlesUsers",
+      "key":"userId",
+      "foreignKey": "articleId"
     }
   }
 }

@@ -44,6 +44,13 @@ describe('forester crud', function () {
             update: {$set: {bestArticleId: articles[0]._id}}
         });
 
+
+        await db.collection('joinArticlesUsers').insert([
+            {articleId: articles[0]._id, userId: users[0]._id},
+            {articleId: articles[0]._id, userId: users[1]._id},
+            {articleId: articles[2]._id, userId: users[2]._id}
+        ]);
+
         done();
     });
 
@@ -51,6 +58,7 @@ describe('forester crud', function () {
 
         app = new Forester();
 
+        app.registerCollection(require('./fixture/join-articles-users.json'));
         app.registerCollection(require('./fixture/articles.json'));
         app.registerCollection(require('./fixture/users.json'));
         app.registerDataSource(require('./fixture/db1.json'));
@@ -92,6 +100,13 @@ describe('forester crud', function () {
     it('should return bestArticle (hasOne)', function (done) {
         request(host)
             .get('/users/'+users[0]._id + '/bestArticle')
+            .set('Accept', 'application/json')
+            .expect(200, articles[0], done);
+    });
+
+    it('should return likedArticle (hasAndBelongsToMany from users)', function (done) {
+        request(host)
+            .get('/users/'+users[0]._id + '/likedArticles')
             .set('Accept', 'application/json')
             .expect(200, articles[0], done);
     });

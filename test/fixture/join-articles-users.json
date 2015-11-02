@@ -1,0 +1,11 @@
+{
+  "name": "joinArticlesUsers",
+  "properties": {
+    "userId": {
+      "type": "number"
+    },
+    "articleId": {
+      "type": "number"
+    }
+  }
+}

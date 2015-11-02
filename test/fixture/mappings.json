@@ -6,5 +6,9 @@
   {
     "collection": "articles",
     "datasource": "db1"
+  },
+  {
+    "collection": "joinArticlesUsers",
+    "datasource": "db1"
   }
 ]
