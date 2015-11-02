@@ -1,10 +1,10 @@
 [
   {
     "collection": "users",
-    "datasource": "dbrome"
+    "datasource": "db1"
   },
   {
     "collection": "articles",
-    "datasource": "dbrome"
+    "datasource": "db1"
   }
 ]

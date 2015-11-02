@@ -3,7 +3,6 @@
 var pmongo = require('promised-mongo');
 var DataSourceMongo = require('../lib/data-source-mongo');
 var Forester = require('../lib/forester.js');
-var testData = require('./test-crud.json');
 var request = require('supertest');
 var assert = require('assert');
 var should = require('should');
@@ -23,14 +22,12 @@ describe('forester crud', function () {
         db = pmongo(connString);
         await db.dropDatabase();
 
-        items = await db.collection('users').insert(testData["userData"]);
+        items = await db.collection('users').insert(require('./fixture/sample-users.json'));
 
         items = items.map(function(item){
             item._id = item._id.toString();
             return item;
         });
-
-        console.log("qui", items);
 
         done();
     });
@@ -39,10 +36,10 @@ describe('forester crud', function () {
 
         app = new Forester();
 
-        app.registerCollection(testData["collectionArticles"]);
-        app.registerCollection(testData["collectionUsers"]);
-        app.registerDataSource(testData["dataSource"]);
-        app.registerMappings(testData["mappings"]);
+        app.registerCollection(require('./fixture/articles.json'));
+        app.registerCollection(require('./fixture/users.json'));
+        app.registerDataSource(require('./fixture/db1.json'));
+        app.registerMappings(require('./fixture/mappings.json'));
 
         app.boot();
 

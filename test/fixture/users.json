@@ -4,17 +4,10 @@
   "parent": "ModelBase",
   "properties": {
     "name": {
-      "type": "string",
-      "default": "pippo"
+      "type": "string"
     },
     "surname": {
       "type": "string"
-    },
-    "cap": {
-      "type": "string"
-    },
-    "age": {
-      "type": "number"
     }
   },
   "relations":{
@@ -27,10 +20,11 @@
       "type": "hasMany",
       "collection": "articles",
       "foreignKey": "authorId"
+    },
+    "bestArticle": {
+      "type": "hasMany",
+      "collection": "articles",
+      "foreignKey": "bestArticleId"
     }
-  },
-  "validators": {
-  },
-  "sanitizers": {
   }
 }
