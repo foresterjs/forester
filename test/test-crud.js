@@ -17,14 +17,21 @@ describe('forester crud', function () {
     var db;
     var items;
     var app;
+    var articles;
 
     before('generate db', async function (done) {
         db = pmongo(connString);
         await db.dropDatabase();
 
         items = await db.collection('users').insert(require('./fixture/sample-users.json'));
+        articles = await db.collection('articles').insert(require('./fixture/sample-articles.json'));
 
         items = items.map(function(item){
+            item._id = item._id.toString();
+            return item;
+        });
+
+        articles = articles.map(function(item){
             item._id = item._id.toString();
             return item;
         });

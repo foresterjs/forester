@@ -22,7 +22,7 @@
       "foreignKey": "authorId"
     },
     "bestArticle": {
-      "type": "hasMany",
+      "type": "hasOne",
       "collection": "articles",
       "foreignKey": "bestArticleId"
     }
