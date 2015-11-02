@@ -6,7 +6,8 @@
   "watch": [
     "lib/",
     "lib/middlewares/",
-    "example.js"
+    "example.js",
+    "test/fixture"
   ],
   "verbose": true,
   "ext": "js json",
