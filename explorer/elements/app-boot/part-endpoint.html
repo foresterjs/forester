@@ -1,23 +1,81 @@
+<link rel="import" href="../../components/iron-input/iron-input.html">
+<link rel="import" href="../../components/iron-autogrow-textarea/iron-autogrow-textarea.html">
+
 <dom-module id="part-endpoint">
   <template>
     <style>
       :host {
         display: block;
+        margin-bottom: 30px;
       }
 
       .endpoint {
         font-weight: bold;
       }
 
-      section {
-        margin-bottom: 30px;
+      #output {
+        width: 50%;
+        height: 100px;
+        border: 1px solid #ccc;
+      }
+
+      .textarea {
+        font-family: courier;
+        font-size: inherit;
       }
     </style>
 
-    <section>
-      <pre class="endpoint">{{endpoint.method}} {{endpoint.url}}</pre>
-      <pre>{{endpoint.description}}</pre>
-    </section>
+    <pre class="endpoint">{{endpoint.method}} {{endpoint.url}}</pre>
+    <pre>{{endpoint.description}}</pre>
+
+    <template is="dom-if" if="{{has_querystring(endpoint)}}">
+      <div>
+        <label>querystring</label>
+        <input is="iron-input" type="text" bind-value="{{querystring}}">
+      </div>
+    </template>
+
+    <template is="dom-if" if="{{has_param('id', endpoint.url)}}">
+      <div>
+        <label>id</label>
+        <input is="iron-input" type="text" bind-value="{{param_id}}">
+      </div>
+    </template>
+
+    <template is="dom-if" if="{{has_param('fk', endpoint.url)}}">
+      <div>
+        <label>fk</label>
+        <input is="iron-input" type="text" bind-value="{{param_fk}}">
+      </div>
+    </template>
+
+    <template is="dom-if" if="{{has_body(endpoint)}}">
+      <div>
+        <label>body</label><br>
+        <iron-autogrow-textarea class="textarea" rows="5" bind-value="{{body}}"></iron-autogrow-textarea>
+      </div>
+    </template>
+
+    <template is="dom-if" if="{{loading}}">
+      ...loading
+    </template>
+
+    <div>
+      <label>status</label>
+      <input disabled is="iron-input" bind-value="{{status}}">
+    </div>
+
+    <label>response</label>
+    <div>
+      <iron-autogrow-textarea rows="3" bind-value="{{output}}"></iron-autogrow-textarea>
+    </div>
+
+    <label>errors</label>
+    <div>
+      <iron-autogrow-textarea rows="1" bind-value="{{error}}"></iron-autogrow-textarea>
+    </div>
+
+    <button id="send" on-click="on_click_send">send</button>
 
   </template>
 </dom-module>
@@ -31,6 +89,50 @@
         type: Object,
         value: function () { return {}; }
       }
+    },
+
+    has_querystring: function (endpoint) {
+      return endpoint.method.toLowerCase() === 'get';
+    },
+
+    has_param: function (param, url) {
+      return url.indexOf('/:' + param) >= 0;
+    },
+
+    has_body: function (endpoint) {
+      return ['put', 'post', 'patch'].indexOf(endpoint.method.toLowerCase()) >= 0;
+    },
+
+    on_click_send: function (event) {
+      var url = this.endpoint.url
+        .replace(':id', this.param_id)
+        .replace(':fk', this.param_fk)
+
+      if (this.querystring) {
+        url += '?' + this.querystring;
+      }
+      console.log(this.param_id, this.param_fk, url);
+
+      this.loading = true;
+
+      fetch(url, {
+          method: this.endpoint.method,
+          body: this.body
+        })
+        .then(function (response) {
+          console.log(response);
+          this.loading = false;
+          this.status = response.status;
+          return response.json();
+        }.bind(this))
+        .then(function (json) {
+          console.log(json);
+          this.output = JSON.stringify(json, ' ', 2);
+        }.bind(this))
+        .catch(function (error) {
+          console.warn(error);
+          this.error = error;
+        }.bind(this));
     }
 
   });
