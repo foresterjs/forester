@@ -1,3 +1,6 @@
-.*
+/explorer/components
 /node_modules
+.*
+!.bowerrc
+!.editorconfig
 !.gitignore
