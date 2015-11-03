@@ -1,0 +1,37 @@
+<dom-module id="part-endpoint">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      .endpoint {
+        font-weight: bold;
+      }
+
+      section {
+        margin-bottom: 30px;
+      }
+    </style>
+
+    <section>
+      <pre class="endpoint">{{endpoint.method}} {{endpoint.url}}</pre>
+      <pre>{{endpoint.description}}</pre>
+    </section>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'part-endpoint',
+
+    properties: {
+      endpoint: {
+        type: Object,
+        value: function () { return {}; }
+      }
+    }
+
+  });
+</script>

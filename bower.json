@@ -1,0 +1,8 @@
+{
+  "name": "forester",
+  "version": "0.0.3",
+  "dependencies": {
+    "polymer": "Polymer/Polymer#^1.2.0"
+  },
+  "license": "MIT"
+}

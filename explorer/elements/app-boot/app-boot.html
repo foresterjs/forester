@@ -1,0 +1,61 @@
+<link rel="import" href="part-collection.html">
+
+<dom-module id="app-boot">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      h1 {
+        font-family: courier;
+      }
+    </style>
+
+    <h1>Forester explorer</h1>
+
+    <template is="dom-repeat" items="{{collections}}" as="collection">
+      <part-collection collection="{{collection}}"></part-collection>
+    </template>
+
+  </template>
+</dom-module>
+
+<script>
+  Polymer({
+
+    is: 'app-boot',
+
+    properties: {
+
+    },
+
+    attached: function () {
+
+      function status(response) {
+        if (response.status >= 200 && response.status < 300) {
+          return Promise.resolve(response)
+        } else {
+          return Promise.reject(new Error(response.statusText))
+        }
+      }
+
+      function json (response) {
+        return response.json()
+      }
+
+
+      fetch('/schema')
+        .then(status)
+        .then(json)
+        .then(function(data) {
+          console.log('Request succeeded with JSON response', data);
+          this.collections = Object.keys(data).map(function (key) { return data[key]; })
+        }.bind(this))
+        .catch(function(error) {
+          console.log('Request failed', error);
+        });
+    }
+
+  });
+</script>
