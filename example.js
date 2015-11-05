@@ -12,5 +12,5 @@ app.registerMappings(require('./test/fixture/mappings.json'));
 
 app.boot();
 
-app.listen({port:3000});
+app.listen({port: 3000});
 
