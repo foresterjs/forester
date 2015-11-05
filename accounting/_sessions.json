@@ -1,0 +1,22 @@
+{
+  "name": "_sessions",
+  "description": "Collection that contains all sessions of the users",
+  "properties": {
+    "token": {
+      "type": "string"
+    },
+    "datetime": {
+      "type": "datetime"
+    },
+    "ip": {
+      "type": "string"
+    }
+  },
+  "relations":{
+    "user": {
+      "type": "belongsTo",
+      "collection": "_users",
+      "foreignKey": "userId"
+    }
+  }
+}

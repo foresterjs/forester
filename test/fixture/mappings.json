@@ -14,5 +14,13 @@
   {
     "collection": "comments",
     "datasource": "db1"
+  },
+  {
+    "collection": "_users",
+    "datasource": "db1"
+  },
+  {
+    "collection": "_sessions",
+    "datasource": "db1"
   }
 ]

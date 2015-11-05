@@ -4,6 +4,7 @@
   },
   "script": "app.js",
   "watch": [
+    "accounting/",
     "lib/",
     "lib/middlewares/",
     "example.js",

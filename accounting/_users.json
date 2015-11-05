@@ -1,0 +1,19 @@
+{
+  "name": "_users",
+  "description": "Collection that contains all users of the system",
+  "properties": {
+    "username": {
+      "type": "string"
+    },
+    "password": {
+      "type": "string"
+    }
+  },
+  "relations":{
+    "accessTokens": {
+      "type": "hasMany",
+      "collection": "_sessions",
+      "foreignKey": "_userId"
+    }
+  }
+}
