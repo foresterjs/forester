@@ -10,5 +10,9 @@
   {
     "collection": "joinArticlesUsers",
     "datasource": "db1"
+  },
+  {
+    "collection": "comments",
+    "datasource": "db1"
   }
 ]

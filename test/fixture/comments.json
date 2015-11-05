@@ -1,0 +1,17 @@
+{
+  "name": "comments",
+  "properties": {
+    "userId": {
+      "type": "number"
+    },
+    "articleId": {
+      "type": "number"
+    },
+    "datetime":{
+      "type": "string"
+    },
+    "message":{
+      "type": "string"
+    }
+  }
+}

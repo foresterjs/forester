@@ -32,6 +32,13 @@
       "through": "joinArticlesUsers",
       "key":"userId",
       "foreignKey": "articleId"
+    },
+    "comments": {
+      "type": "hasManyThrough",
+      "collection": "articles",
+      "through": "comments",
+      "key":"userId",
+      "foreignKey": "articleId"
     }
   }
 }
