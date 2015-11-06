@@ -116,6 +116,9 @@
       this.loading = true;
 
       fetch(url, {
+          headers: {
+            'Content-type': 'application/json'
+          },
           method: this.endpoint.method,
           body: this.body
         })
