@@ -5,7 +5,7 @@ var app = new Forester();
 
 app.registerCollection(require('./test/fixture/join-articles-users.json'));
 app.registerCollection(require('./test/fixture/users.json'));
-app.registerCollection(require('./test/fixture/category.json'));
+app.registerCollection(require('./test/fixture/categories.json'));
 app.registerCollection(require('./test/fixture/articles.json'));
 app.registerCollection(require('./test/fixture/comments.json'));
 

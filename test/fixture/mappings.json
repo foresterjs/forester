@@ -24,7 +24,7 @@
     "datasource": "db1"
   },
   {
-    "collection": "category",
+    "collection": "categories",
     "datasource": "db1"
   }
 ]
