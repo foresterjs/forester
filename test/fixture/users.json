@@ -21,10 +21,10 @@
       "collection": "articles",
       "foreignKey": "authorId"
     },
-    "bestArticle": {
+    "profile": {
       "type": "hasOne",
-      "collection": "articles",
-      "foreignKey": "bestArticleId"
+      "collection": "profiles",
+      "foreignKey": "userId"
     },
     "likedArticles": {
       "type": "hasAndBelongsToMany",

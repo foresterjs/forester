@@ -1,0 +1,8 @@
+{
+  "name": "profiles",
+  "properties":{
+    "userId": {
+      "type": "Number"
+    }
+  }
+}

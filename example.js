@@ -8,6 +8,7 @@ app.registerCollection(require('./test/fixture/users.json'));
 app.registerCollection(require('./test/fixture/categories.json'));
 app.registerCollection(require('./test/fixture/articles.json'));
 app.registerCollection(require('./test/fixture/comments.json'));
+app.registerCollection(require('./test/fixture/profiles.json'));
 
 app.registerDataSource(require('./test/fixture/db1.json'));
 app.registerMappings(require('./test/fixture/mappings.json'));

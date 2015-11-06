@@ -26,5 +26,9 @@
   {
     "collection": "categories",
     "datasource": "db1"
+  },
+  {
+    "collection": "profiles",
+    "datasource": "db1"
   }
 ]
