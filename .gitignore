@@ -1,6 +1,7 @@
 /explorer/components
 /node_modules
 .*
+!.babelrc
 !.bowerrc
 !.editorconfig
 !.gitignore
