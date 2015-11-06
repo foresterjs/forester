@@ -11,10 +11,10 @@
     }
   },
   "relations":{
-    "bestArticle": {
+    "category": {
       "type": "belongsTo",
-      "collection": "articles",
-      "foreignKey": "articlesId"
+      "collection": "categories",
+      "foreignKey": "categoryId"
     },
     "authoredArticles": {
       "type": "hasMany",
