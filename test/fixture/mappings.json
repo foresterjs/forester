@@ -22,5 +22,9 @@
   {
     "collection": "_sessions",
     "datasource": "db1"
+  },
+  {
+    "collection": "category",
+    "datasource": "db1"
   }
 ]
