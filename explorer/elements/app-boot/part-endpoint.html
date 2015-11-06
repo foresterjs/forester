@@ -128,6 +128,7 @@
         .then(function (json) {
           console.log(json);
           this.output = JSON.stringify(json, ' ', 2);
+          this.error = '';
         }.bind(this))
         .catch(function (error) {
           console.warn(error);
