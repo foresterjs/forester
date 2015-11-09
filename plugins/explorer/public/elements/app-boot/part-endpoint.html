@@ -23,6 +23,10 @@
         font-family: courier;
         font-size: inherit;
       }
+
+      .fullwidth{
+        width: 100%;
+      }
     </style>
 
     <pre class="endpoint">{{endpoint.method}} {{endpoint.url}}</pre>
@@ -67,7 +71,7 @@
 
     <label>response</label>
     <div>
-      <iron-autogrow-textarea rows="3" bind-value="{{output}}"></iron-autogrow-textarea>
+      <iron-autogrow-textarea rows="3" bind-value="{{output}}" class="fullwidth"></iron-autogrow-textarea>
     </div>
 
     <label>errors</label>
