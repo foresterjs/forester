@@ -10,6 +10,9 @@
     },
     "ip": {
       "type": "string"
+    },
+    "valid": {
+      "type": "boolean"
     }
   },
   "relations":{
