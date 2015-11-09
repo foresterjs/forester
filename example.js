@@ -17,7 +17,12 @@ app.registerMappings(require('./test/fixture/mappings.json'));
 app.use(require('./plugins/accounting/plugin.js'));
 app.use(require('./plugins/explorer/plugin.js'));
 
-app.boot();
+app.boot().then(() => {
 
-app.listen({port: 3000});
+  app.listen({port: 3000});
+
+});
+
+
+
 
