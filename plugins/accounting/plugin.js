@@ -1,6 +1,6 @@
 "use strict";
 
-import wrap from '../lib/koa-ctx';
+import wrap from '../../lib/koa-ctx';
 
 module.exports = function (forester) {
 

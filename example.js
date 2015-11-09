@@ -14,7 +14,8 @@ app.registerDataSource(require('./test/fixture/db1.json'));
 app.registerMappings(require('./test/fixture/mappings.json'));
 
 
-app.plugin(require('./accounting/plugin.js'));
+app.plugin(require('./plugins/accounting/plugin.js'));
+app.plugin(require('./plugins/explorer/plugin.js'));
 
 app.boot();
 
