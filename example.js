@@ -14,10 +14,12 @@ app.registerDataSource(require('./test/fixture/db1.json'));
 app.registerMappings(require('./test/fixture/mappings.json'));
 
 
-app.boot().then(() => {
-
+app.boot()
+  .then(() => {
   app.listen({port: 3000});
-
+  })
+  .catch((e) => {
+    console.log(e)
 });
 
 
