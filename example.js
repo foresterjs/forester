@@ -14,9 +14,6 @@ app.registerDataSource(require('./test/fixture/db1.json'));
 app.registerMappings(require('./test/fixture/mappings.json'));
 
 
-app.use(require('./plugins/accounting/plugin.js'));
-app.use(require('./plugins/explorer/plugin.js'));
-
 app.boot().then(() => {
 
   app.listen({port: 3000});
