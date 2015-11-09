@@ -1,6 +1,6 @@
 {
   "name": "forester",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "dependencies": {
     "polymer": "Polymer/Polymer#^1.2.0",
     "iron-input": "PolymerElements/iron-input#^1.0.0",
