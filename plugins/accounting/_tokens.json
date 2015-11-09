@@ -1,6 +1,6 @@
 {
-  "name": "_sessions",
-  "description": "Collection that contains all sessions of the users",
+  "name": "_tokens",
+  "description": "Collection that contains all tokens of the users",
   "properties": {
     "token": {
       "type": "string"

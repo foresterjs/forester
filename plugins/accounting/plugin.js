@@ -6,14 +6,14 @@ import crypto from 'crypto';
 module.exports = function (forester) {
 
   var usersCollection = forester.registerCollection(require(__dirname + "/_users.json"));
-  var sessionsCollection = forester.registerCollection(require(__dirname + "/_sessions.json"));
+  var tokensCollection = forester.registerCollection(require(__dirname + "/_tokens.json"));
 
   forester.registerEndpoint(
     {
       collectionName: "_users",
       method: "post",
       route: "/login",
-      middlewares: [wrap(loginMiddleware({usersCollection, sessionsCollection}))],
+      middlewares: [wrap(loginMiddleware({usersCollection, tokensCollection}))],
       description: "login and create a session token"
     }
   );
@@ -23,7 +23,7 @@ module.exports = function (forester) {
       collectionName: "_users",
       method: "post",
       route: "/logout",
-      middlewares: [wrap(logoutMiddleware({sessionsCollection}))],
+      middlewares: [wrap(logoutMiddleware({tokensCollection}))],
       description: "login and create a session token"
     }
   );
@@ -31,7 +31,7 @@ module.exports = function (forester) {
 };
 
 
-export function loginMiddleware({usersCollection, sessionsCollection}) {
+export function loginMiddleware({usersCollection, tokensCollection}) {
   return async function ({request, response, params}, next) {
 
     var data = await request.json();
@@ -65,7 +65,7 @@ export function loginMiddleware({usersCollection, sessionsCollection}) {
       valid: true
     };
 
-    var session = await sessionsCollection.create(sessionData);
+    var session = await tokensCollection.create(sessionData);
 
     response.body.data = session;
     response.body.done = true;
@@ -74,7 +74,7 @@ export function loginMiddleware({usersCollection, sessionsCollection}) {
   }
 }
 
-export function logoutMiddleware({sessionsCollection}) {
+export function logoutMiddleware({tokensCollection}) {
   return async function ({request, response, params}, next) {
 
     var data = await request.json();
@@ -82,7 +82,7 @@ export function logoutMiddleware({sessionsCollection}) {
 
     var token = data.token;
 
-    var sessions = await sessionsCollection.findAll({where: {token}});
+    var sessions = await tokensCollection.findAll({where: {token}});
 
     if(sessions.length !== 1){
       response.body.done = false;
@@ -94,7 +94,7 @@ export function logoutMiddleware({sessionsCollection}) {
     var sessionData = sessions[0];
     sessionData.valid = false;
 
-    var session = await sessionsCollection.update(sessionData.id, sessionData);
+    var session = await tokensCollection.update(sessionData.id, sessionData);
 
     response.body.data = session;
     response.body.done = true;
