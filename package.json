@@ -2,8 +2,8 @@
   "name": "forester",
   "version": "0.0.4",
   "description": "Rest API",
+  "main": "lib/forester.js",
   "scripts": {
-    "index": "lib/forester.js",
     "start-example": "nodemon --harmony example.js",
     "test": "mocha --compilers js:babel-core/register",
     "postinstall": "bower --allow-root cache clean && bower --allow-root install"
