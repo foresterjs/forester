@@ -13,6 +13,9 @@ app.registerCollection(require('./test/fixture/profiles.json'));
 app.registerDataSource(require('./test/fixture/db1.json'));
 app.registerMappings(require('./test/fixture/mappings.json'));
 
+
+app.plugin(require('./accounting/plugin.js'));
+
 app.boot();
 
 app.listen({port: 3000});
