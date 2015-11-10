@@ -2,6 +2,6 @@
   "name": "db1",
   "adapter": "mongo",
   "options": {
-    "connectionUri": "mongodb://forester_db_1:27017/forester_test"
+    "connectionUri": "mongodb://localhost:27017/forester_test"
   }
 }
