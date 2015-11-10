@@ -1,5 +1,5 @@
 <link rel="import" href="../app-theme/app-theme.html">
-<link rel="import" href="part-collection.html">
+<link rel="import" href="part-collections.html">
 
 <dom-module id="app-boot">
   <template>
@@ -11,9 +11,7 @@
 
     <h1>Forester explorer</h1>
 
-    <template is="dom-repeat" items="{{collections}}" as="collection">
-      <part-collection collection="{{collection}}"></part-collection>
-    </template>
+    <part-collections collections="{{collections}}"></part-collections>
 
   </template>
 </dom-module>
@@ -22,10 +20,6 @@
   Polymer({
 
     is: 'app-boot',
-
-    properties: {
-
-    },
 
     attached: function () {
 
