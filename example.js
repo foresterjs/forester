@@ -13,7 +13,15 @@ app.registerCollection(require('./test/fixture/profiles.json'));
 app.registerDataSource(require('./test/fixture/db1.json'));
 app.registerMappings(require('./test/fixture/mappings.json'));
 
-app.boot();
 
-app.listen({port: 3000});
+app.boot()
+  .then(() => {
+  app.listen({port: 3000});
+  })
+  .catch((e) => {
+    console.log(e)
+});
+
+
+
 

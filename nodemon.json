@@ -1,10 +1,12 @@
 {
   "execMap": {
-    "js": "babel-node --harmony"
+    "js": "babel-node"
   },
   "script": "app.js",
   "watch": [
-    "accounting/",
+    ".babelrc",
+    "plugins/accounting/",
+    "plugins/explorer/",
     "lib/",
     "lib/middlewares/",
     "example.js",

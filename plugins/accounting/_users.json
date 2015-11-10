@@ -12,8 +12,8 @@
   "relations":{
     "accessTokens": {
       "type": "hasMany",
-      "collection": "_sessions",
-      "foreignKey": "_userId"
+      "collection": "_tokens",
+      "foreignKey": "userId"
     }
   }
 }

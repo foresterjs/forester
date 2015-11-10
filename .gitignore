@@ -1,4 +1,4 @@
-/explorer/components
+/plugins/explorer/public/components
 /node_modules
 .*
 !.babelrc

@@ -20,7 +20,7 @@
     "datasource": "db1"
   },
   {
-    "collection": "_sessions",
+    "collection": "_tokens",
     "datasource": "db1"
   },
   {
