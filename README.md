@@ -3,14 +3,14 @@
 
 ## Roadmap
 - Basic CRUD (DONE)
-- Static files
-- Relation
+- Static files (DONE)
+- Relation (DONE)
 - ACL
 - Sanitization
 - Validation
-- User Model
-- Remote methods
+- User Model (DOING)
+- Remote methods (DONE)
 - Hooks
-- Explorer
-- Token
-- Query Pagination
+- Explorer (DOING)
+- Token (DOING)
+- Query Pagination (DONE)
