@@ -1,6 +1,5 @@
-<link rel="import" href="part-collection.html">
-
-<dom-module id="part-collections">
+<link rel="import" href="item-collection.html">
+<dom-module id="list-collections">
   <template>
     <style>
       :host {
@@ -9,7 +8,7 @@
     </style>
 
     <template is="dom-repeat" items="{{collections}}" as="collection">
-      <part-collection collection="{{collection}}"></part-collection>
+      <item-collection collection="{{collection}}"></item-collection>
     </template>
 
   </template>
@@ -18,7 +17,7 @@
 <script>
   Polymer({
 
-    is: 'part-collections',
+    is: 'list-collections',
 
     properties: {
       collections: {

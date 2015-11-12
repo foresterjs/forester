@@ -1,0 +1,28 @@
+<link rel="import" href="../list-endpoints/list-endpoints.html">
+
+<dom-module id="panel-collection">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <list-endpoints collection="{{collection}}" endpoints="{{collection.endpoints}}"></list-endpoints>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'panel-collection',
+
+    properties: {
+      collection: {
+        type: Object,
+        value: function () { return {}; }
+      }
+    }
+
+  });
+</script>

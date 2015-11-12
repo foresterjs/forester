@@ -1,12 +1,20 @@
 <link rel="import" href="../../components/iron-input/iron-input.html">
 <link rel="import" href="../../components/iron-autogrow-textarea/iron-autogrow-textarea.html">
 
-<dom-module id="part-endpoint">
+<dom-module id="panel-endpoint">
   <template>
     <style>
       :host {
         display: block;
         margin-bottom: 30px;
+      }
+
+      label {
+        display: block;
+      }
+
+      .code {
+        font-family: courier;
       }
 
       .endpoint {
@@ -29,9 +37,10 @@
       }
     </style>
 
-    <pre class="endpoint">{{endpoint.method}} {{endpoint.url}}</pre>
-    <pre>{{endpoint.description}}</pre>
+    <h2 class="code">{{endpoint.method}} {{endpoint.url}}</h2>
+    <p>{{endpoint.description}}</p>
 
+    <h3>request</h3>
     <template is="dom-if" if="{{has_querystring(endpoint)}}">
       <div>
         <label>querystring</label>
@@ -60,6 +69,8 @@
       </div>
     </template>
 
+    <h3>response</h3>
+
     <template is="dom-if" if="{{loading}}">
       ...loading
     </template>
@@ -86,7 +97,7 @@
 <script>
   Polymer({
 
-    is: 'part-endpoint',
+    is: 'panel-endpoint',
 
     properties: {
       endpoint: {

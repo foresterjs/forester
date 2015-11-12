@@ -1,5 +1,8 @@
+<link rel="import" href="../../components/app-container/app-container.html">
 <link rel="import" href="../app-theme/app-theme.html">
-<link rel="import" href="part-collections.html">
+<link rel="import" href="../page-home/page-home.html">
+<link rel="import" href="../page-collection/page-collection.html">
+<link rel="import" href="../page-endpoint/page-endpoint.html">
 
 <dom-module id="app-boot">
   <template>
@@ -9,9 +12,7 @@
       }
     </style>
 
-    <h1>Forester explorer</h1>
-
-    <part-collections collections="{{collections}}"></part-collections>
+    <app-container id="container"></app-container>
 
   </template>
 </dom-module>
@@ -22,7 +23,23 @@
     is: 'app-boot',
 
     attached: function () {
+      this.fetch().then(this.register.bind(this));
+    },
 
+    register: function () {
+      var app = this;
+      Object.keys(app.constructor.prototype)
+        .filter(function (method) {
+          return method.indexOf('/') == 0;
+        })
+        .forEach(function (method) {
+          var handler = app[method].bind(this);
+          page(method, handler);
+        }, this);
+      page();
+    },
+
+    fetch: function () {
       function status(response) {
         if (response.status >= 200 && response.status < 300) {
           return Promise.resolve(response)
@@ -35,17 +52,58 @@
         return response.json()
       }
 
-
-      fetch('/schema')
+      return fetch('/schema')
         .then(status)
         .then(json)
         .then(function(data) {
           console.log('Request succeeded with JSON response', data);
-          this.collections = Object.keys(data).map(function (key) { return data[key]; })
+          this.collections = Object.keys(data).map(function (key) { return data[key]; });
+          this.collections = this.collections.sort(function (a, b) { return a.name > b.name; });
         }.bind(this))
         .catch(function(error) {
           console.log('Request failed', error);
         });
+    },
+
+    open: function (context) {
+      var element = document.createElement(context.page);
+      var property;
+      for (property in context) {
+        element[property] = context[property];
+      }
+      this.$.container.open(element);
+    },
+
+    _get_collection: function (collection_name) {
+      return this.collections.filter(function (collection) {
+        return collection.name == collection_name;
+      })[0];
+    },
+
+    '/explorer': function (context) {
+      context.page = 'page-home';
+      context.data = {};
+      context.data.collections = this.collections;
+      this.open(context);
+    },
+
+    '/explorer/collections/:collection': function (context) {
+      context.page = 'page-collection';
+      context.data = {};
+      context.data.collections = this.collections;
+      context.data.collection = this._get_collection(context.params.collection);
+      this.open(context);
+    },
+
+    '/explorer/collections/:collection/endpoints/:endpoint': function (context) {
+      context.page = 'page-endpoint';
+      context.data = {};
+      context.data.collections = this.collections;
+      var collection = this._get_collection(context.params.collection);
+      context.data.collection = collection;
+      var endpoint = collection.endpoints[context.params.endpoint];
+      context.data.endpoint = endpoint;
+      this.open(context);
     }
 
   });

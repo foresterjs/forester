@@ -1,0 +1,38 @@
+<link rel="import" href="../style-item/style-item.html">
+<dom-module id="item-endpoint">
+  <template>
+    <style include="style-item"></style>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <a href="/explorer/collections/{{collection.name}}/endpoints/{{index}}">
+      <span>{{endpoint.method}}</span>
+      <span>{{endpoint.url}}</span>
+    </a>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'item-endpoint',
+
+    properties: {
+      collection: {
+        type: Object,
+        value: function () { return {}; }
+      },
+      endpoint: {
+        type: Object,
+        value: function () { return {}; }
+      },
+      index: {
+        type: Number
+      }
+    }
+
+  });
+</script>

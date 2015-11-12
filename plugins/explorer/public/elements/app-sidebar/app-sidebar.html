@@ -1,0 +1,36 @@
+<link rel="import" href="../../components/app-link/app-link.html">
+<link rel="import" href="../list-collections/list-collections.html">
+
+<dom-module id="app-sidebar">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      a {
+        color: #333;
+        text-decoration: inherit;
+      }
+    </style>
+
+    <h1><a is="app-link" href="/explorer">explorer</a></h1>
+    <list-collections collections="{{collections}}"></list-collections>
+
+  </template>
+</dom-module>
+
+<script>
+  Polymer({
+
+    is: 'app-sidebar',
+
+    properties: {
+      collections: {
+        type: Array,
+        value: function () { return []; }
+      }
+    }
+
+  });
+</script>

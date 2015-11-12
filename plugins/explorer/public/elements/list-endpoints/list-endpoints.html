@@ -1,6 +1,5 @@
-<link rel="import" href="part-endpoint.html">
-
-<dom-module id="part-endpoints">
+<link rel="import" href="item-endpoint.html">
+<dom-module id="list-endpoints">
   <template>
     <style>
       :host {
@@ -9,7 +8,7 @@
     </style>
 
     <template is="dom-repeat" items="{{endpoints}}" as="endpoint">
-      <part-endpoint endpoint="{{endpoint}}"></part-endpoint>
+      <item-endpoint collection="{{collection}}" endpoint="{{endpoint}}" index="{{index}}"></item-endpoint>
     </template>
 
   </template>
@@ -18,9 +17,13 @@
 <script>
   Polymer({
 
-    is: 'part-endpoints',
+    is: 'list-endpoints',
 
     properties: {
+      collection: {
+        type: Object,
+        value: function () { return {}; }
+      },
       endpoints: {
         type: Array,
         value: function () { return []; }
