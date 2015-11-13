@@ -26,7 +26,7 @@ app.boot()
   app.listen({port: 3000});
   })
   .catch((e) => {
-    console.log(e)
+    console.log(e.stack)
 });
 
 
