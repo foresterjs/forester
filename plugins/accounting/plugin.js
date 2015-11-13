@@ -1,19 +1,24 @@
 "use strict";
 
 import wrap from '../../lib/koa-ctx';
-import crypto from 'crypto';
+var jwt = require('jsonwebtoken');
 
 module.exports = function (forester) {
 
   var usersCollection = forester.registerCollection(require(__dirname + "/_users.json"));
   var tokensCollection = forester.registerCollection(require(__dirname + "/_tokens.json"));
+  var jwtConfig = forester.config.jwt;
+
+  if(!jwtConfig.secret){
+    throw new Error("Please add a secret in jwt");
+  }
 
   forester.registerEndpoint(
     {
       collectionName: "_users",
       method: "post",
       route: "/login",
-      middlewares: [wrap(loginMiddleware({usersCollection, tokensCollection}))],
+      middlewares: [wrap(loginMiddleware({usersCollection, tokensCollection, jwtConfig}))],
       description: "login and create a session token"
     }
   );
@@ -23,7 +28,7 @@ module.exports = function (forester) {
       collectionName: "_users",
       method: "post",
       route: "/logout",
-      middlewares: [wrap(logoutMiddleware({tokensCollection}))],
+      middlewares: [wrap(logoutMiddleware({tokensCollection, jwtConfig}))],
       description: "login and create a session token"
     }
   );
@@ -31,7 +36,7 @@ module.exports = function (forester) {
 };
 
 
-export function loginMiddleware({usersCollection, tokensCollection}) {
+export function loginMiddleware({usersCollection, tokensCollection, jwtConfig}) {
   return async function ({request, response, params}, next) {
 
     var data = await request.json();
@@ -58,8 +63,10 @@ export function loginMiddleware({usersCollection, tokensCollection}) {
       return;
     }
 
+    var generatedJwt = jwt.sign({}, jwtConfig.secret);
+
     var sessionData = {
-      token: crypto.randomBytes(64).toString('hex'),
+      token: generatedJwt,
       datetime: new Date(),
       ip: request.ip,
       valid: true
