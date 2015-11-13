@@ -23,7 +23,7 @@ export function schema({collections, rest}) {
         name: collectionName,
         properties: collectionSchema.properties,
         relations: collectionSchema.relations,
-        endpoints: rest.routesDescription[collectionName] || []
+        endpoints: rest.routes[collectionName] || []
       });
     }
 
