@@ -5,12 +5,10 @@
   "script": "app.js",
   "watch": [
     ".babelrc",
-    "plugins/accounting/",
-    "plugins/explorer/",
+    "plugins/",
     "lib/",
-    "lib/middlewares/",
-    "example.js",
-    "test/fixture"
+    "test/fixture",
+    "example.js"
   ],
   "verbose": true,
   "ext": "js json",
