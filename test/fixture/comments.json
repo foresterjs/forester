@@ -22,7 +22,7 @@
     {
       "method": "pick",
       "check": "isA",
-      "role": ["admin"]
+      "roles": ["admin"]
     }
   ]
 }
