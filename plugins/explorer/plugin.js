@@ -1,19 +1,22 @@
 "use strict";
 
-import wrap from '../../lib/koa-ctx';
-var router = require('koa-router');
+const router = require('koa-simple-router');
 
 module.exports = function (forester) {
 
   forester.registerStaticRoute({route: '/explorer', path: __dirname + '/public'});
 
-  var routes = router();
-  routes.get('/schema', wrap(schema({collections: forester.collections, rest: forester.rest})));
-  forester.koa.use(routes.routes());
+
+  forester.koa.use(
+    router(_ => {
+      _.get('/schema', serveSchema({collections: forester.collections, rest: forester.rest}));
+    })
+  );
+
 };
 
 
-export function schema({collections, rest}) {
+export function serveSchema({collections, rest}) {
   return async function ({request, response}, next) {
     var endpointsDescription = [];
 
