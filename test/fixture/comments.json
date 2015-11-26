@@ -17,6 +17,16 @@
   "acl":[
     {
       "method": "find",
+      "check": "isOwner",
+      "property": "userId"
+    },
+    {
+      "method": "create",
+      "check": "isOwner",
+      "property": "userId"
+    },
+    {
+      "method": "find",
       "check": "isAuthenticated"
     },
     {
