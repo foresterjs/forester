@@ -12,7 +12,7 @@
       }
     </style>
 
-    <app-container id="container"></app-container>
+    <app-container id="container" on-link="on_link"></app-container>
 
   </template>
 </dom-module>
@@ -28,6 +28,8 @@
 
     register: function () {
       var app = this;
+
+
       Object.keys(app.constructor.prototype)
         .filter(function (method) {
           return method.indexOf('/') == 0;
@@ -36,7 +38,18 @@
           var handler = app[method].bind(this);
           page(method, handler);
         }, this);
-      page();
+
+      page({
+        hashbang: true
+      });
+
+      window.addEventListener('hashchange', function (event) {
+        page(location.hash);
+      });
+    },
+
+    on_link: function (event) {
+      console.log(event);
     },
 
     fetch: function () {
@@ -80,14 +93,14 @@
       })[0];
     },
 
-    '/explorer': function (context) {
+    '/': function (context) {
       context.page = 'page-home';
       context.data = {};
       context.data.collections = this.collections;
       this.open(context);
     },
 
-    '/explorer/collections/:collection': function (context) {
+    '/:collection': function (context) {
       context.page = 'page-collection';
       context.data = {};
       context.data.collections = this.collections;
@@ -95,7 +108,7 @@
       this.open(context);
     },
 
-    '/explorer/collections/:collection/endpoints/:endpoint': function (context) {
+    '/:collection/:endpoint': function (context) {
       context.page = 'page-endpoint';
       context.data = {};
       context.data.collections = this.collections;
