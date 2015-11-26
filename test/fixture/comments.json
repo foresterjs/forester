@@ -13,5 +13,16 @@
     "message":{
       "type": "string"
     }
-  }
+  },
+  "acl":[
+    {
+      "method": "find",
+      "check": "isAuthenticated"
+    },
+    {
+      "method": "pick",
+      "check": "isA",
+      "roles": ["admin"]
+    }
+  ]
 }

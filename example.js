@@ -3,6 +3,13 @@
 var Forester = require('./lib/forester.js');
 var app = new Forester();
 
+app.registerConfig('jwt', {
+  secret : 'change_me',
+  options : {
+
+  }
+});
+
 app.registerCollection(require('./test/fixture/join-articles-users.json'));
 app.registerCollection(require('./test/fixture/users.json'));
 app.registerCollection(require('./test/fixture/categories.json'));
@@ -19,7 +26,7 @@ app.boot()
   app.listen({port: 3000});
   })
   .catch((e) => {
-    console.log(e)
+    console.log(e.stack)
 });
 
 
