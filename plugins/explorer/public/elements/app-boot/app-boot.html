@@ -69,9 +69,13 @@
         .then(status)
         .then(json)
         .then(function(data) {
-          console.log('Request succeeded with JSON response', data);
-          this.collections = Object.keys(data).map(function (key) { return data[key]; });
-          this.collections = this.collections.sort(function (a, b) { return a.name > b.name; });
+          this.collections = data.sort(function (a, b) { return a.name > b.name; });
+          this.collections.forEach(function (collection) {
+            collection.endpoints.forEach(function (endpoint) {
+              var name = endpoint.relation ? endpoint.relation + '_' + endpoint.action : endpoint.action;
+              endpoint.name = name;
+            });
+          })
         }.bind(this))
         .catch(function(error) {
           console.log('Request failed', error);
@@ -88,9 +92,18 @@
     },
 
     _get_collection: function (collection_name) {
-      return this.collections.filter(function (collection) {
+      var collection = this.collections.filter(function (collection) {
         return collection.name == collection_name;
       })[0];
+      return collection;
+    },
+
+    _get_endpoint: function (collection_name, endpoint_name) {
+      var collection = this._get_collection(collection_name);
+      var endpoint = collection.endpoints.filter(function (endpoint) {
+        return endpoint_name == endpoint.name;
+      })[0];
+      return endpoint;
     },
 
     '/': function (context) {
@@ -114,7 +127,7 @@
       context.data.collections = this.collections;
       var collection = this._get_collection(context.params.collection);
       context.data.collection = collection;
-      var endpoint = collection.endpoints[context.params.endpoint];
+      var endpoint = this._get_endpoint(context.params.collection, context.params.endpoint);
       context.data.endpoint = endpoint;
       this.open(context);
     }

@@ -6,11 +6,25 @@
       :host {
         display: block;
       }
+
+      .endpoint {
+        display: block;
+        margin-bottom: 1.5em;
+        background-color: #eee;
+        padding: .5em 1em;
+      }
+
+      .endpoint .description,
+      .endpoint .url {
+        margin: .4em 0em;
+      }
     </style>
 
-    <a href="#!/{{collection.name}}/{{index}}">
+    <a class="endpoint" href="#!/{{collection.name}}/{{endpoint.name}}">
+      <strong>{{endpoint.name}}</strong>
       <span>{{endpoint.method}}</span>
-      <span>{{endpoint.url}}</span>
+      <p class="description">{{endpoint.description}}</p>
+      <pre class="url">{{endpoint.url}}</pre>
     </a>
 
   </template>
@@ -28,9 +42,6 @@
       endpoint: {
         type: Object,
         value: function () { return {}; }
-      },
-      index: {
-        type: Number
       }
     }
 
