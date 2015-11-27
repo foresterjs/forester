@@ -118,6 +118,10 @@
       context.data = {};
       context.data.collections = this.collections;
       context.data.collection = this._get_collection(context.params.collection);
+      if (!context.data.collection) {
+        page('#!/');
+        return;
+      }
       this.open(context);
     },
 
