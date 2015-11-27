@@ -12,7 +12,7 @@
       }
     </style>
 
-    <app-container id="container"></app-container>
+    <app-container id="container" on-link="on_link"></app-container>
 
   </template>
 </dom-module>
@@ -28,6 +28,8 @@
 
     register: function () {
       var app = this;
+
+
       Object.keys(app.constructor.prototype)
         .filter(function (method) {
           return method.indexOf('/') == 0;
@@ -36,7 +38,18 @@
           var handler = app[method].bind(this);
           page(method, handler);
         }, this);
-      page();
+
+      page({
+        hashbang: true
+      });
+
+      window.addEventListener('hashchange', function (event) {
+        page(location.hash);
+      });
+    },
+
+    on_link: function (event) {
+      console.log(event);
     },
 
     fetch: function () {
@@ -56,9 +69,13 @@
         .then(status)
         .then(json)
         .then(function(data) {
-          console.log('Request succeeded with JSON response', data);
-          this.collections = Object.keys(data).map(function (key) { return data[key]; });
-          this.collections = this.collections.sort(function (a, b) { return a.name > b.name; });
+          this.collections = data.sort(function (a, b) { return a.name > b.name; });
+          this.collections.forEach(function (collection) {
+            collection.endpoints.forEach(function (endpoint) {
+              var name = endpoint.relation ? endpoint.relation + '_' + endpoint.action : endpoint.action;
+              endpoint.name = name;
+            });
+          })
         }.bind(this))
         .catch(function(error) {
           console.log('Request failed', error);
@@ -75,33 +92,46 @@
     },
 
     _get_collection: function (collection_name) {
-      return this.collections.filter(function (collection) {
+      var collection = this.collections.filter(function (collection) {
         return collection.name == collection_name;
       })[0];
+      return collection;
     },
 
-    '/explorer': function (context) {
+    _get_endpoint: function (collection_name, endpoint_name) {
+      var collection = this._get_collection(collection_name);
+      var endpoint = collection.endpoints.filter(function (endpoint) {
+        return endpoint_name == endpoint.name;
+      })[0];
+      return endpoint;
+    },
+
+    '/': function (context) {
       context.page = 'page-home';
       context.data = {};
       context.data.collections = this.collections;
       this.open(context);
     },
 
-    '/explorer/collections/:collection': function (context) {
+    '/:collection': function (context) {
       context.page = 'page-collection';
       context.data = {};
       context.data.collections = this.collections;
       context.data.collection = this._get_collection(context.params.collection);
+      if (!context.data.collection) {
+        page('#!/');
+        return;
+      }
       this.open(context);
     },
 
-    '/explorer/collections/:collection/endpoints/:endpoint': function (context) {
+    '/:collection/:endpoint': function (context) {
       context.page = 'page-endpoint';
       context.data = {};
       context.data.collections = this.collections;
       var collection = this._get_collection(context.params.collection);
       context.data.collection = collection;
-      var endpoint = collection.endpoints[context.params.endpoint];
+      var endpoint = this._get_endpoint(context.params.collection, context.params.endpoint);
       context.data.endpoint = endpoint;
       this.open(context);
     }

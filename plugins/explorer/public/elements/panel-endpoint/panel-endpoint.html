@@ -1,6 +1,5 @@
 <link rel="import" href="../../components/iron-input/iron-input.html">
 <link rel="import" href="../../components/iron-autogrow-textarea/iron-autogrow-textarea.html">
-
 <dom-module id="panel-endpoint">
   <template>
     <style>
@@ -9,8 +8,43 @@
         margin-bottom: 30px;
       }
 
-      label {
+      .panel .title {
+        font-family: font-bold;
+        text-transform: uppercase;
+      }
+
+      .field {
+        margin-bottom: 1.5em;
+      }
+
+      .label {
         display: block;
+        font-weight: 600;
+      }
+      .input {
+        border: 1px solid #eee;
+        width: 100%;
+        box-sizing: border-box;
+        padding: .5em;
+        font-size: inherit;
+      }
+      .input:focus {
+        outline: none;
+        border-color: coral;
+      }
+
+      .button {
+        border: none;
+        border-radius: 2px;
+        padding: .5em .8em;
+        background-color: #eee;
+        font-size: inherit;
+      }
+      .button:hover {
+        cursor: pointer;
+      }
+      .button:focus {
+        outline: none;
       }
 
       .code {
@@ -30,67 +64,77 @@
       .textarea {
         font-family: courier;
         font-size: inherit;
-      }
-
-      .fullwidth{
         width: 100%;
+        border: 1px solid #eee;
+        box-sizing: border-box;
       }
     </style>
 
-    <h2 class="code">{{endpoint.method}} {{endpoint.url}}</h2>
+    <h3>{{endpoint.name}}</h3>
+    <h4 class="code">{{endpoint.method}} {{endpoint.url}}</h4>
     <p>{{endpoint.description}}</p>
 
-    <h3>request</h3>
-    <template is="dom-if" if="{{has_querystring(endpoint)}}">
-      <div>
-        <label>querystring</label>
-        <input is="iron-input" type="text" bind-value="{{querystring}}">
-      </div>
-    </template>
+    <div class="panel">
+      <h3 class="title">request</h3>
 
-    <template is="dom-if" if="{{has_param('id', endpoint.url)}}">
-      <div>
-        <label>id</label>
-        <input is="iron-input" type="text" bind-value="{{param_id}}">
+      <div class="field">
+        <label class="label">token</label>
+        <input class="input" is="iron-input" type="text" bind-value="{{token}}">
       </div>
-    </template>
 
-    <template is="dom-if" if="{{has_param('fk', endpoint.url)}}">
-      <div>
-        <label>fk</label>
-        <input is="iron-input" type="text" bind-value="{{param_fk}}">
-      </div>
-    </template>
+      <template is="dom-if" if="{{has_querystring(endpoint)}}">
+        <div class="field">
+          <label class="label">querystring</label>
+          <input class="input" is="iron-input" type="text" bind-value="{{querystring}}">
+        </div>
+      </template>
 
-    <template is="dom-if" if="{{has_body(endpoint)}}">
-      <div>
-        <label>body</label><br>
-        <iron-autogrow-textarea class="textarea" rows="5" bind-value="{{body}}"></iron-autogrow-textarea>
-      </div>
-    </template>
+      <template is="dom-if" if="{{has_param('id', endpoint.url)}}">
+        <div class="field">
+          <label class="label">id</label>
+          <input class="input" is="iron-input" type="text" bind-value="{{param_id}}">
+        </div>
+      </template>
 
-    <h3>response</h3>
+      <template is="dom-if" if="{{has_param('fk', endpoint.url)}}">
+        <div class="field">
+          <label class="label">fk</label>
+          <input class="input" is="iron-input" type="text" bind-value="{{param_fk}}">
+        </div>
+      </template>
+
+      <template is="dom-if" if="{{has_body(endpoint)}}">
+        <div class="field">
+          <label class="label">body</label>
+          <iron-autogrow-textarea class="textarea" class="textarea" rows="5" bind-value="{{body}}"></iron-autogrow-textarea>
+        </div>
+      </template>
+
+      <button id="send" class="button" on-click="on_click_send">send</button>
+    </div>
+
+
+    <div class="panel">
+      <h3 class="title">response</h3>
 
     <template is="dom-if" if="{{loading}}">
-      ...loading
+      <span>loading...</span>
     </template>
 
-    <div>
-      <label>status</label>
-      <input disabled is="iron-input" bind-value="{{status}}">
+    <div class="field">
+      <label class="label">status</label>
+      <input class="input" disabled is="iron-input" bind-value="{{status}}">
     </div>
 
-    <label>response</label>
-    <div>
-      <iron-autogrow-textarea rows="3" bind-value="{{output}}" class="fullwidth"></iron-autogrow-textarea>
+    <div class="field">
+      <label class="label">response</label>
+      <iron-autogrow-textarea class="textarea" rows="3" bind-value="{{output}}"></iron-autogrow-textarea>
     </div>
 
-    <label>errors</label>
-    <div>
-      <iron-autogrow-textarea rows="1" bind-value="{{error}}"></iron-autogrow-textarea>
+    <div class="field">
+      <label class="label">errors</label>
+      <iron-autogrow-textarea class="textarea" rows="1" bind-value="{{error}}"></iron-autogrow-textarea>
     </div>
-
-    <button id="send" on-click="on_click_send">send</button>
 
   </template>
 </dom-module>
@@ -132,7 +176,8 @@
 
       fetch(url, {
           headers: {
-            'Content-type': 'application/json'
+            'Content-type': 'application/json',
+            'Authorization': this.token
           },
           method: this.endpoint.method,
           body: this.body
@@ -151,6 +196,7 @@
         .catch(function (error) {
           console.warn(error);
           this.error = error;
+          this.output = '';
         }.bind(this));
     }
 
