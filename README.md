@@ -5,12 +5,12 @@
 - Basic CRUD (DONE)
 - Static files (DONE)
 - Relation (DONE)
-- ACL
+- ACL (DOING)
 - Sanitization
 - Validation
-- User Model (DOING)
+- User Model (DONE)
 - Remote methods (DONE)
-- Hooks
-- Explorer (DOING)
-- Token (DOING)
+- Hooks (DONE)
+- Explorer (DONE)
+- Token (DONE)
 - Query Pagination (DONE)
