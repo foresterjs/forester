@@ -1,5 +1,5 @@
 {
-  "name": "users",
+  "name": "authors",
   "description": "bla bla bla",
   "parent": "ModelBase",
   "properties": {
@@ -24,20 +24,20 @@
     "profile": {
       "type": "hasOne",
       "collection": "profiles",
-      "foreignKey": "userId"
+      "foreignKey": "authorId"
     },
     "likedArticles": {
       "type": "hasAndBelongsToMany",
       "collection": "articles",
-      "through": "joinArticlesUsers",
-      "key":"userId",
+      "through": "joinArticlesAuthors",
+      "key":"authorId",
       "foreignKey": "articleId"
     },
     "comments": {
       "type": "hasManyThrough",
       "collection": "articles",
       "through": "comments",
-      "key":"userId",
+      "key":"authorId",
       "foreignKey": "articleId"
     }
   }

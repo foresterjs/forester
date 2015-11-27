@@ -1,5 +1,5 @@
 {
-  "name": "joinArticlesUsers",
+  "name": "joinArticlesAuthors",
   "properties": {
     "userId": {
       "type": "number"

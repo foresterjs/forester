@@ -10,8 +10,8 @@ app.registerConfig('jwt', {
   }
 });
 
-app.registerCollection(require('./test/fixture/join-articles-users.json'));
-app.registerCollection(require('./test/fixture/users.json'));
+app.registerCollection(require('./test/fixture/join-articles-authors.json'));
+app.registerCollection(require('./test/fixture/authors.json'));
 app.registerCollection(require('./test/fixture/categories.json'));
 app.registerCollection(require('./test/fixture/articles.json'));
 app.registerCollection(require('./test/fixture/comments.json'));

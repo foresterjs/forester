@@ -7,7 +7,7 @@
     "likersUsers": {
       "type": "hasAndBelongsToMany",
       "collection": "users",
-      "through": "joinArticlesUsers",
+      "through": "joinArticlesAuthors",
       "key":"articleId",
       "foreignKey": "userId"
     }
