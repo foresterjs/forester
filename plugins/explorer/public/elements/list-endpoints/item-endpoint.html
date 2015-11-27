@@ -18,13 +18,21 @@
       .endpoint .url {
         margin: .4em 0em;
       }
+
+      .endpoint .url{
+        display: inline-block;
+      }
+
+      .endpoint .method{
+        text-transform: uppercase;
+        display: inline-block;
+      }
     </style>
 
     <a class="endpoint" href="#!/{{collection.name}}/{{endpoint.name}}">
       <strong>{{endpoint.name}}</strong>
-      <span>{{endpoint.method}}</span>
       <p class="description">{{endpoint.description}}</p>
-      <pre class="url">{{endpoint.url}}</pre>
+      <pre class="method">{{endpoint.method}}</pre> <pre class="url">{{endpoint.url}}</pre>
     </a>
 
   </template>
