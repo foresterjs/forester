@@ -26,13 +26,13 @@
       "property": "userId"
     },
     {
-      "method": "find",
-      "check": "isAuthenticated"
+      "method": "pick",
+      "check": "isOwner",
+      "property": "userId"
     },
     {
-      "method": "pick",
-      "check": "isA",
-      "roles": ["admin"]
+      "method": "find",
+      "check": "isAuthenticated"
     }
   ]
 }
