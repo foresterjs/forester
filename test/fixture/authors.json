@@ -10,7 +10,7 @@
       "type": "string"
     }
   },
-  "relations":{
+  "relations": {
     "category": {
       "type": "belongsTo",
       "collection": "categories",
@@ -30,15 +30,21 @@
       "type": "hasAndBelongsToMany",
       "collection": "articles",
       "through": "joinArticlesAuthors",
-      "key":"authorId",
+      "key": "authorId",
       "foreignKey": "articleId"
     },
     "comments": {
       "type": "hasManyThrough",
       "collection": "articles",
       "through": "comments",
-      "key":"authorId",
+      "key": "authorId",
       "foreignKey": "articleId"
     }
-  }
+  },
+  "acl": [
+    {
+      "action": "*",
+      "check": "skip"
+    }
+  ]
 }

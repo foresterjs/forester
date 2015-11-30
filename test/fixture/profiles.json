@@ -1,8 +1,14 @@
 {
   "name": "profiles",
-  "properties":{
+  "properties": {
     "userId": {
       "type": "Number"
     }
-  }
+  },
+  "acl": [
+    {
+      "action": "*",
+      "check": "skip"
+    }
+  ]
 }

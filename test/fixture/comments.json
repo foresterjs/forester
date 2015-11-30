@@ -7,14 +7,14 @@
     "articleId": {
       "type": "number"
     },
-    "datetime":{
+    "datetime": {
       "type": "string"
     },
-    "message":{
+    "message": {
       "type": "string"
     }
   },
-  "acl":[
+  "acl": [
     {
       "action": "find",
       "check": "isOwner",

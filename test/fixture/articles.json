@@ -1,15 +1,20 @@
 {
   "name": "articles",
-  "properties":{
-
+  "properties": {
   },
-  "relations":{
+  "relations": {
     "likersUsers": {
       "type": "hasAndBelongsToMany",
       "collection": "users",
       "through": "joinArticlesAuthors",
-      "key":"articleId",
+      "key": "articleId",
       "foreignKey": "userId"
     }
-  }
+  },
+  "acl": [
+    {
+      "action": "*",
+      "check": "skip"
+    }
+  ]
 }

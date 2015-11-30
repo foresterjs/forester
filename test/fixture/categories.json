@@ -1,6 +1,11 @@
 {
   "name": "categories",
-  "properties":{
-
-  }
+  "properties": {
+  },
+  "acl": [
+    {
+      "action": "*",
+      "check": "skip"
+    }
+  ]
 }
