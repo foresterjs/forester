@@ -3,13 +3,7 @@
 var Forester = require('./lib/forester.js');
 var app = new Forester();
 
-app.registerConfig('jwt', {
-  secret : 'change_me',
-  options : {
-
-  }
-});
-
+app.registerConfig(require('./test/fixture/config.json'));
 app.registerCollection(require('./test/fixture/join-articles-authors.json'));
 app.registerCollection(require('./test/fixture/collections/authors.json'));
 app.registerCollection(require('./test/fixture/collections/categories.json'));

@@ -2,14 +2,15 @@
 
 
 const jwt = require('jsonwebtoken');
+const assert = require('assert');
 
 module.exports = function (forester) {
 
   var usersCollection = forester.registerCollection(require('./collections/_users.json'));
   var tokensCollection = forester.registerCollection(require('./collections/_tokens.json'));
-  var jwtConfig = forester.config.jwt;
+  var config = forester.config;
 
-  forester.koa.use(check(usersCollection, tokensCollection, jwtConfig));
+  forester.koa.use(check(usersCollection, tokensCollection, config));
 
   forester.registerEndpoint(
     {
@@ -17,7 +18,7 @@ module.exports = function (forester) {
       collectionName: usersCollection.name,
       method: "post",
       route: "/login",
-      middlewares: [login(usersCollection, tokensCollection, jwtConfig)],
+      middlewares: [login(usersCollection, tokensCollection, config)],
       description: "login and create a session token"
     }
   );
@@ -25,10 +26,12 @@ module.exports = function (forester) {
 };
 
 
-export function check(usersCollection, tokensCollection, jwtConfig) {
+export function check(usersCollection, tokensCollection, config) {
 
   return async function (ctx, next) {
 
+    assert(config.jwt, "jwt config not defined");
+    assert(config.jwt.secret, "jwt secret not defined");
 
     var request = ctx.request;
     var response = ctx.response;
@@ -41,7 +44,7 @@ export function check(usersCollection, tokensCollection, jwtConfig) {
     }
 
     try {
-      var vars = jwt.verify(token, jwtConfig.secret);
+      var vars = jwt.verify(token, config.jwt.secret);
     } catch (e) {
       response.status = 403;
       return;
@@ -68,8 +71,11 @@ export function check(usersCollection, tokensCollection, jwtConfig) {
 }
 
 
-export function login(usersCollection, tokensCollection, jwtConfig) {
+export function login(usersCollection, tokensCollection, config) {
   return async function ({request, response}, next) {
+
+    assert(config.jwt, "jwt config not defined");
+    assert(config.jwt.secret, "jwt secret not defined");
 
     var data = request.body;
     response.body = response.body || {};
@@ -98,7 +104,7 @@ export function login(usersCollection, tokensCollection, jwtConfig) {
     delete user.password;
 
     var data = {
-      token: jwt.sign({}, jwtConfig.secret),
+      token: jwt.sign({}, config.jwt.secret),
       userId: user.id
     };
 
