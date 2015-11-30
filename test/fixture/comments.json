@@ -16,27 +16,27 @@
   },
   "acl":[
     {
-      "method": "find",
+      "action": "find",
       "check": "isOwner",
       "property": "userId"
     },
     {
-      "method": "create",
+      "action": "create",
       "check": "isOwner",
       "property": "userId"
     },
     {
-      "method": "pick",
+      "action": "pick",
       "check": "isOwner",
       "property": "userId"
     },
     {
-      "method": "destroy",
+      "action": "destroy",
       "check": "isOwner",
       "property": "userId"
     },
     {
-      "method": "find",
+      "action": "find",
       "check": "isAuthenticated"
     }
   ]
