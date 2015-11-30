@@ -11,11 +11,11 @@ app.registerConfig('jwt', {
 });
 
 app.registerCollection(require('./test/fixture/join-articles-authors.json'));
-app.registerCollection(require('./test/fixture/authors.json'));
-app.registerCollection(require('./test/fixture/categories.json'));
-app.registerCollection(require('./test/fixture/articles.json'));
-app.registerCollection(require('./test/fixture/comments.json'));
-app.registerCollection(require('./test/fixture/profiles.json'));
+app.registerCollection(require('./test/fixture/collections/authors.json'));
+app.registerCollection(require('./test/fixture/collections/categories.json'));
+app.registerCollection(require('./test/fixture/collections/articles.json'));
+app.registerCollection(require('./test/fixture/collections/comments.json'));
+app.registerCollection(require('./test/fixture/collections/profiles.json'));
 
 app.registerDataSource(require('./test/fixture/db1.json'));
 app.registerMappings(require('./test/fixture/mappings.json'));
