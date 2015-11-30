@@ -11,13 +11,21 @@ module.exports = function (forester) {
 
   forester.koa.use(check(usersCollection, tokensCollection, jwtConfig));
 
+  forester.registerEndpoint(
+    {
+      action: "login",
+      collectionName: usersCollection.name,
+      method: "post",
+      route: "/login",
+      middlewares: [login(usersCollection, tokensCollection, jwtConfig)],
+      description: "login and create a session token"
+    }
+  );
+
 };
 
 
-
-
-
-export function check (usersCollection, tokensCollection, jwtConfig) {
+export function check(usersCollection, tokensCollection, jwtConfig) {
 
   return async function (ctx, next) {
 
@@ -27,21 +35,21 @@ export function check (usersCollection, tokensCollection, jwtConfig) {
 
     var token = request.query.token || request.get('Authorization');
 
-    if(!token){
+    if (!token) {
       await next();
       return;
     }
 
     try {
       var vars = jwt.verify(token, jwtConfig.secret);
-    }catch (e){
+    } catch (e) {
       response.status = 403;
       return;
     }
 
     var tokenObj = await tokensCollection.findAll({where: {token}});
 
-    if(tokenObj.length !== 1){
+    if (tokenObj.length !== 1) {
       response.status = 403;
       return;
     }
@@ -56,5 +64,50 @@ export function check (usersCollection, tokensCollection, jwtConfig) {
 
     await next();
 
+  }
+}
+
+
+export function login(usersCollection, tokensCollection, jwtConfig) {
+  return async function ({request, response}, next) {
+
+    var data = request.body;
+    response.body = response.body || {};
+
+    var username = data.username;
+    var password = data.password;
+
+    var users = await usersCollection.findAll({where: {username: username}});
+
+    if (users.length !== 1) {
+      response.body.done = false;
+      response.body.errors = ['not_found'];
+      await next();
+      return;
+    }
+
+    var user = users[0];
+
+    if (user.password !== password) {
+      response.body.done = false;
+      response.body.errors = ['bad_password'];
+      await next();
+      return;
+    }
+
+    delete user.password;
+
+    var data = {
+      token: jwt.sign({}, jwtConfig.secret),
+      userId: user.id
+    };
+
+    var token = await tokensCollection.create(data);
+
+    response.body.data = token;
+    response.body.user = user;
+    response.body.done = true;
+
+    await next();
   }
 }
