@@ -1,0 +1,31 @@
+{
+  "name": "_users",
+  "description": "Collection that contains all users of the system",
+  "properties": {
+    "username": {
+      "type": "string"
+    },
+    "password": {
+      "type": "string"
+    },
+    "roles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "relations":{
+    "accessTokens": {
+      "type": "hasMany",
+      "collection": "_tokens",
+      "foreignKey": "userId"
+    }
+  },
+  "acl": [
+    {
+      "action": "*",
+      "check": "skip"
+    }
+  ]
+}

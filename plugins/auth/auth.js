@@ -1,15 +1,26 @@
 "use strict";
 
-var jwt = require('jsonwebtoken');
 
+const jwt = require('jsonwebtoken');
 
 module.exports = function (forester) {
 
-  var usersCollection = forester.collections._users;
-  var tokensCollection = forester.collections._tokens;
+  var usersCollection = forester.registerCollection(require('./collections/_users.json'));
+  var tokensCollection = forester.registerCollection(require('./collections/_tokens.json'));
   var jwtConfig = forester.config.jwt;
 
+  forester.koa.use(check(usersCollection, tokensCollection, jwtConfig));
+
+};
+
+
+
+
+
+export function check (usersCollection, tokensCollection, jwtConfig) {
+
   return async function (ctx, next) {
+
 
     var request = ctx.request;
     var response = ctx.response;
@@ -46,4 +57,4 @@ module.exports = function (forester) {
     await next();
 
   }
-};
+}
