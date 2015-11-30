@@ -2,7 +2,7 @@
   "name": "categories",
   "properties": {
   },
-  "acl": [
+  "defender": [
     {
       "action": "*",
       "check": "skip"

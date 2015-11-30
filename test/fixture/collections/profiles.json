@@ -5,7 +5,7 @@
       "type": "Number"
     }
   },
-  "acl": [
+  "defender": [
     {
       "action": "*",
       "check": "skip"

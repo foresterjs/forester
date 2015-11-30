@@ -41,7 +41,7 @@
       "foreignKey": "articleId"
     }
   },
-  "acl": [
+  "defender": [
     {
       "action": "*",
       "check": "skip"
