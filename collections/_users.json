@@ -21,5 +21,11 @@
       "collection": "_tokens",
       "foreignKey": "userId"
     }
-  }
+  },
+  "acl": [
+    {
+      "action": "*",
+      "check": "skip"
+    }
+  ]
 }
