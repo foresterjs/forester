@@ -33,16 +33,17 @@ export function check(usersCollection, tokensCollection, config) {
     assert(config.jwt, "jwt config not defined");
     assert(config.jwt.secret, "jwt secret not defined");
 
-    var request = ctx.request;
-    var response = ctx.response;
+    var {request, response} = ctx;
 
     var token = request.query.token || request.get('Authorization');
-
     if (!token) {
       await next();
       return;
     }
 
+    /********************
+     check token with jwt
+     *********************/
     try {
       var vars = jwt.verify(token, config.jwt.secret);
     } catch (e) {
@@ -50,19 +51,26 @@ export function check(usersCollection, tokensCollection, config) {
       return;
     }
 
+    /**************************
+     check token with storage
+     **************************/
     var tokenObj = await tokensCollection.findAll({where: {token}});
-
     if (tokenObj.length !== 1) {
       response.status = 403;
       return;
     }
-
     tokenObj = tokenObj[0];
-    response.body = response.body || {};
 
+    /*********
+     pick user
+     *********/
+    response.body = response.body || {};
     var user = await usersCollection.pick(tokenObj.userId);
     delete user.password;
 
+    /***********
+     authenticate
+     ************/
     ctx.user = user; //If authenticated put user in ctx
 
     await next();
@@ -77,11 +85,13 @@ export function login(usersCollection, tokensCollection, config) {
     assert(config.jwt, "jwt config not defined");
     assert(config.jwt.secret, "jwt secret not defined");
 
-    var data = request.body;
+    var {username, password} = request.body;
     response.body = response.body || {};
 
-    var username = data.username;
-    var password = data.password;
+
+    /*********
+     pick user
+     *********/
 
     var users = await usersCollection.findAll({where: {username: username}});
 
@@ -91,18 +101,22 @@ export function login(usersCollection, tokensCollection, config) {
       await next();
       return;
     }
-
     var user = users[0];
 
+    /***************
+     check password
+     **************/
     if (user.password !== password) {
       response.body.done = false;
       response.body.errors = ['bad_password'];
       await next();
       return;
     }
-
     delete user.password;
 
+    /*********************
+     sign and create token
+     *********************/
     var data = {
       token: jwt.sign({}, config.jwt.secret),
       userId: user.id
