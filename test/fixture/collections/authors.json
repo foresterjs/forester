@@ -48,8 +48,9 @@
     },
     {
       "relation": "category",
-      "action": "*",
-      "check": "skip"
+      "action": "pick",
+      "check": "isOwner",
+      "property" : "userId"
     }
   ]
 }
