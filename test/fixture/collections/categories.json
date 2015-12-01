@@ -4,8 +4,9 @@
   },
   "defender": [
     {
-      "action": "*",
-      "check": "skip"
+      "action": ["find", "pick"],
+      "check": "isOwner",
+      "property": "userId"
     }
   ]
 }
