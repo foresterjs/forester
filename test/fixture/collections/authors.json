@@ -45,6 +45,11 @@
     {
       "action": "*",
       "check": "skip"
+    },
+    {
+      "relation": "category",
+      "action": "*",
+      "check": "skip"
     }
   ]
 }
