@@ -1,6 +1,10 @@
 {
   "name": "articles",
   "properties": {
+    "title": {
+      "type": "string",
+      "required": true
+    }
   },
   "relations": {
     "likersUsers": {
