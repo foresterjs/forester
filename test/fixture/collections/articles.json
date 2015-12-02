@@ -4,6 +4,15 @@
     "title": {
       "type": "string",
       "required": true
+    },
+    "description":{
+      "type": "string",
+      "default": "default description",
+      "required": true
+    },
+    "count":{
+      "type": "number",
+      "default": 0
     }
   },
   "relations": {

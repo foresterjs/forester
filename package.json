@@ -46,6 +46,7 @@
     "koa-simple-router": "^0.2.0",
     "koa-static": "~1.4.3",
     "mschema": "^0.5.5",
-    "promised-mongo": "^1.2.0"
+    "promised-mongo": "^1.2.0",
+    "schemata": "^3.0.0"
   }
 }

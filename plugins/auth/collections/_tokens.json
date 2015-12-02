@@ -6,7 +6,7 @@
       "type": "string"
     },
     "datetime": {
-      "type": "datetime"
+      "type": "date"
     },
     "ip": {
       "type": "string"
