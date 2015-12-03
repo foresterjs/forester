@@ -4,7 +4,7 @@
   "description": "Rest API",
   "main": "lib/forester.js",
   "scripts": {
-    "start-example": "nodemon example.js",
+    "start-example": "nodemon example/example.js",
     "postinstall": "bower --allow-root cache clean && bower --allow-root install"
   },
   "repository": {
