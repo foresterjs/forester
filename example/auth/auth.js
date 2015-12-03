@@ -6,8 +6,8 @@ const assert = require('assert');
 
 module.exports = function (forester) {
 
-  var usersCollection = forester.registerCollection(require('./collections/_users.json'));
-  var tokensCollection = forester.registerCollection(require('./collections/_tokens.json'));
+  var usersCollection = forester.registerCollection(require('./_users.json'));
+  var tokensCollection = forester.registerCollection(require('./_tokens.json'));
   var config = forester.config;
 
   forester.koa.use(check(usersCollection, tokensCollection, config));

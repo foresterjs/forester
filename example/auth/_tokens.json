@@ -3,16 +3,12 @@
   "description": "Collection that contains all tokens of the users",
   "properties": {
     "token": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
-    "datetime": {
-      "type": "date"
-    },
-    "ip": {
-      "type": "string"
-    },
-    "valid": {
-      "type": "boolean"
+    "userId": {
+      "type": "string",
+      "required": true
     }
   },
   "relations":{

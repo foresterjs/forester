@@ -3,10 +3,12 @@
   "description": "Collection that contains all users of the system",
   "properties": {
     "username": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "password": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "roles": {
       "type": "array",
