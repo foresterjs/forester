@@ -5,9 +5,9 @@
 - Basic CRUD (DONE)
 - Static files (DONE)
 - Relation (DONE)
-- ACL (DOING)
-- Sanitization
-- Validation
+- ACL (DONE)
+- Sanitization (DONE)
+- Validation (DONE)
 - User Model (DONE)
 - Remote methods (DONE)
 - Hooks (DONE)
