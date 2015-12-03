@@ -4,10 +4,12 @@
   "parent": "ModelBase",
   "properties": {
     "name": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "surname": {
-      "type": "string"
+      "type": "string",
+      "required": true
     }
   },
   "relations": {
@@ -51,6 +53,11 @@
       "action": "pick",
       "check": "isOwner",
       "property" : "userId"
+    },
+    {
+      "relation": "authoredArticles",
+      "action": "*",
+      "check": "skip"
     }
   ]
 }

@@ -13,6 +13,9 @@
     "count":{
       "type": "number",
       "default": 0
+    },
+    "authorId": {
+      "type": "string"
     }
   },
   "relations": {
