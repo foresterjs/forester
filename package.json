@@ -1,6 +1,6 @@
 {
   "name": "forester",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Rest API",
   "main": "lib/forester.js",
   "scripts": {
