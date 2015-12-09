@@ -4,8 +4,8 @@ var _createClass = (function () { function defineProperties(target, props) { for
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-const router = require('koa-simple-router');
-const compose = require('koa-compose');
+var router = require('koa-simple-router');
+var compose = require('koa-compose');
 
 var crudMiddlewares = require('./rest-middlewares/crud');
 
@@ -17,7 +17,7 @@ var relationsMiddlewares = {
   hasManyThrough: require('./rest-middlewares/has-many-through')
 };
 
-let Rest = (function () {
+var Rest = (function () {
   function Rest(app) {
     _classCallCheck(this, Rest);
 
@@ -33,17 +33,17 @@ let Rest = (function () {
   }, {
     key: 'registerEndpoint',
     value: function registerEndpoint(_ref) {
-      let collectionName = _ref.collectionName;
-      let method = _ref.method;
-      let route = _ref.route;
-      let middlewares = _ref.middlewares;
-      let description = _ref.description;
-      let action = _ref.action;
-      let relation = _ref.relation;
+      var collectionName = _ref.collectionName;
+      var method = _ref.method;
+      var route = _ref.route;
+      var middlewares = _ref.middlewares;
+      var description = _ref.description;
+      var action = _ref.action;
+      var relation = _ref.relation;
 
       var prefix = '/api/' + collectionName;
 
-      this.app.koa.use(router({ prefix }, function (_) {
+      this.app.koa.use(router({ prefix: prefix }, function (_) {
         _[method](route, compose(middlewares));
       }));
 
@@ -71,7 +71,7 @@ let Rest = (function () {
   }, {
     key: 'registerCrud',
     value: function registerCrud(collection) {
-      crudMiddlewares(this, { collection });
+      crudMiddlewares(this, { collection: collection });
     }
   }, {
     key: 'registerRelations',

@@ -16,9 +16,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-const ValidationFail = require('./validation-fail');
+var ValidationFail = require('./validation-fail');
 
-let Validator = (function () {
+var Validator = (function () {
   function Validator(schema) {
     _classCallCheck(this, Validator);
 
@@ -28,20 +28,38 @@ let Validator = (function () {
   _createClass(Validator, [{
     key: 'validate',
     value: (function () {
-      var ref = _asyncToGenerator(function* (data) {
+      var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(data) {
+        var validationResult, errors;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                validationResult = _mschema2.default.validate(data, this.schema);
 
-        let validationResult = _mschema2.default.validate(data, this.schema);
+                if (!validationResult.valid) {
+                  _context.next = 3;
+                  break;
+                }
 
-        if (validationResult.valid) return true;
+                return _context.abrupt('return', true);
 
-        let errors = {};
-        validationResult.errors.forEach(function (err) {
-          errors[err.property] = errors[err.property] || [];
-          errors[err.property].push(err.message);
-        });
+              case 3:
+                errors = {};
 
-        throw new ValidationFail(errors);
-      });
+                validationResult.errors.forEach(function (err) {
+                  errors[err.property] = errors[err.property] || [];
+                  errors[err.property].push(err.message);
+                });
+
+                throw new ValidationFail(errors);
+
+              case 6:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
 
       return function validate(_x) {
         return ref.apply(this, arguments);

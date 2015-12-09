@@ -7,11 +7,23 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 module.exports = function () {
 
   return (function () {
-    var ref = _asyncToGenerator(function* (_ref, next) {
-      _objectDestructuringEmpty(_ref);
+    var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(_ref, next) {
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _objectDestructuringEmpty(_ref);
 
-      yield next();
-    });
+              _context.next = 3;
+              return next();
+
+            case 3:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, this);
+    }));
 
     return function (_x, _x2) {
       return ref.apply(this, arguments);

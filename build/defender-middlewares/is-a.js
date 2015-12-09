@@ -5,29 +5,48 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 module.exports = function (rule) {
 
   return (function () {
-    var ref = _asyncToGenerator(function* (_ref, next) {
-      let user = _ref.user;
-      let response = _ref.response;
+    var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(_ref, next) {
+      var user = _ref.user;
+      var response = _ref.response;
+      var roles, allowedRoles, allow;
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              if (user) {
+                _context.next = 3;
+                break;
+              }
 
-      if (!user) {
-        response.status = 403;
-        return;
-      }
+              response.status = 403;
+              return _context.abrupt("return");
 
-      var roles = user.roles || [];
-      var allowedRoles = rule.roles;
+            case 3:
+              roles = user.roles || [];
+              allowedRoles = rule.roles;
+              allow = allowedRoles.some(function (role) {
+                return roles.indexOf(role) >= 0;
+              });
 
-      var allow = allowedRoles.some(function (role) {
-        return roles.indexOf(role) >= 0;
-      });
+              if (allow) {
+                _context.next = 9;
+                break;
+              }
 
-      if (!allow) {
-        response.status = 403;
-        return;
-      }
+              response.status = 403;
+              return _context.abrupt("return");
 
-      yield next();
-    });
+            case 9:
+              _context.next = 11;
+              return next();
+
+            case 11:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, this);
+    }));
 
     return function (_x, _x2) {
       return ref.apply(this, arguments);

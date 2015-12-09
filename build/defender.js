@@ -4,7 +4,7 @@ var _createClass = (function () { function defineProperties(target, props) { for
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-const compose = require('koa-compose');
+var compose = require('koa-compose');
 
 var checkMethods = {
   isAuthenticated: require('./defender-middlewares/is-authenticated'),
@@ -14,7 +14,7 @@ var checkMethods = {
   halt: require('./defender-middlewares/halt')
 };
 
-let Defender = (function () {
+var Defender = (function () {
   function Defender(collection) {
     _classCallCheck(this, Defender);
 
@@ -55,7 +55,7 @@ let Defender = (function () {
   }, {
     key: 'acl',
     value: function acl(action) {
-      let relation = arguments.length <= 1 || arguments[1] === undefined ? "__collection" : arguments[1];
+      var relation = arguments.length <= 1 || arguments[1] === undefined ? "__collection" : arguments[1];
 
       if (!this.middlewares[relation]) {
         return compose([checkMethods.halt()]);

@@ -11,21 +11,23 @@ var Rest = require('./rest');
 var Defender = require('./defender');
 var DataSourceMongo = require('./data-source-mongo');
 var koa = require('koa');
-const router = require('koa-simple-router');
-const convert = require('koa-convert');
+var router = require('koa-simple-router');
+var convert = require('koa-convert');
 var serve = require('koa-static');
 var mount = require('koa-mount');
 var bodyParser = require('koa-bodyparser');
-const qs = require('koa-qs');
+var qs = require('koa-qs');
+var assert = require("assert");
+var compose = require("koa-compose");
+var koaSend = require("koa-send");
 
-let Forester = (function () {
+var Forester = (function () {
   function Forester() {
     _classCallCheck(this, Forester);
 
     this.collections = {};
     this.dataSources = {};
     this.mappings = [];
-    this.config = {};
     this.dataSourceDrivers = {
       'mongo': DataSourceMongo
     };
@@ -39,9 +41,9 @@ let Forester = (function () {
   _createClass(Forester, [{
     key: 'registerDataSource',
     value: function registerDataSource(_ref) {
-      let name = _ref.name;
-      let adapter = _ref.adapter;
-      let options = _ref.options;
+      var name = _ref.name;
+      var adapter = _ref.adapter;
+      var options = _ref.options;
 
       var driver = this.dataSourceDrivers[adapter];
       if (!driver) throw new Error(adapter + ' is not supported');
@@ -56,7 +58,7 @@ let Forester = (function () {
   }, {
     key: 'registerCollection',
     value: function registerCollection(collectionSchema) {
-      return this.collections[collectionSchema.name] = new Collection({ collectionSchema });
+      return this.collections[collectionSchema.name] = new Collection({ collectionSchema: collectionSchema });
     }
   }, {
     key: 'registerCollections',
@@ -77,22 +79,63 @@ let Forester = (function () {
   }, {
     key: 'registerStaticRoute',
     value: function registerStaticRoute(_ref2) {
-      let route = _ref2.route;
-      let path = _ref2.path;
+      var _ref2$route = _ref2.route;
+      var route = _ref2$route === undefined ? "/" : _ref2$route;
+      var path = _ref2.path;
+      var failback = _ref2.failback;
 
-      if (route) this.koa.use(convert(mount(route, serve(path))));else this.koa.use(convert(serve(path)));
+      assert(path, "Path not defined");
+
+      var failbackMiddleware = convert(regeneratorRuntime.mark(function _callee() {
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!this.body) {
+                  _context.next = 2;
+                  break;
+                }
+
+                return _context.abrupt('return');
+
+              case 2:
+                _context.prev = 2;
+                _context.next = 5;
+                return koaSend(this, failback, { root: path });
+
+              case 5:
+                _context.next = 10;
+                break;
+
+              case 7:
+                _context.prev = 7;
+                _context.t0 = _context['catch'](2);
+
+                console.log(_context.t0);
+
+              case 10:
+                console.log(this.body);
+
+              case 11:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[2, 7]]);
+      }));
+
+      var serveMiddleware = convert(serve(path));
+
+      if (failback) {
+        this.koa.use(mount(route, compose([serveMiddleware, failbackMiddleware])));
+      } else {
+        this.koa.use(mount(route, serveMiddleware));
+      }
     }
   }, {
     key: 'registerEndpoint',
     value: function registerEndpoint(options) {
       this.rest.registerEndpoint(options);
-    }
-  }, {
-    key: 'registerConfig',
-    value: function registerConfig(config) {
-      for (var key in config) {
-        this.config[key] = config[key];
-      }
     }
   }, {
     key: 'registerCheckMethod',
@@ -111,8 +154,8 @@ let Forester = (function () {
       var _this = this;
 
       this.mappings.forEach(function (_ref3) {
-        let collection = _ref3.collection;
-        let datasource = _ref3.datasource;
+        var collection = _ref3.collection;
+        var datasource = _ref3.datasource;
 
         var collectionObj = _this.collections[collection];
         var dataSourceObj = _this.dataSources[datasource];
@@ -133,26 +176,49 @@ let Forester = (function () {
   }, {
     key: 'boot',
     value: (function () {
-      var ref = _asyncToGenerator(function* () {
+      var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee3() {
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
 
-        this.initCollections();
-        this.rest.boot();
+                this.initCollections();
+                this.rest.boot();
 
-        this.koa.use(router(function (_) {
-          _.get('/', (function () {
-            var ref = _asyncToGenerator(function* (ctx, next) {
-              ctx.body = ['Hello! This is Forester!'];
-              yield next();
-            });
+                this.koa.use(router(function (_) {
+                  _.get('/', (function () {
+                    var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee2(ctx, next) {
+                      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                        while (1) {
+                          switch (_context2.prev = _context2.next) {
+                            case 0:
+                              ctx.body = ['Hello! This is Forester!'];
+                              _context2.next = 3;
+                              return next();
 
-            return function (_x, _x2) {
-              return ref.apply(this, arguments);
-            };
-          })());
-        }));
+                            case 3:
+                            case 'end':
+                              return _context2.stop();
+                          }
+                        }
+                      }, _callee2, this);
+                    }));
 
-        console.log("Forester is ready!");
-      });
+                    return function (_x, _x2) {
+                      return ref.apply(this, arguments);
+                    };
+                  })());
+                }));
+
+                console.log("Forester is ready!");
+
+              case 4:
+              case 'end':
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
+      }));
 
       return function boot() {
         return ref.apply(this, arguments);
@@ -168,7 +234,7 @@ let Forester = (function () {
     value: function listen(_ref4) {
       var _this2 = this;
 
-      let port = _ref4.port;
+      var port = _ref4.port;
 
       return new Promise(function (resolve, reject) {
         _this2.server = _this2.koa.listen(port, function (err) {
