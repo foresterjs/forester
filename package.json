@@ -7,7 +7,7 @@
     "prepublish": "npm run clean && npm run-script clean && npm run-script build",
     "clean": "rm -rf ./build && mkdir ./build",
     "build": "babel -d ./build ./lib -s",
-    "start-example": "nodemon example/example.js"
+    "example": "nodemon example/example.js"
   },
   "repository": {
     "type": "git",
