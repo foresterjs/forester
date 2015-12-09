@@ -6,11 +6,7 @@
   "watch": [
     "example/**",
     ".babelrc",
-    "plugins/",
-    "lib/",
-    "test/fixture",
-    "collections",
-    "example.js"
+    "lib/"
   ],
   "verbose": true,
   "ext": "js json",

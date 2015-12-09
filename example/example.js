@@ -1,29 +1,45 @@
 "use strict";
 
-var Forester = require('./../lib/forester.js');
-var app = new Forester();
+// libraries
+const Forester = require('./../lib/forester.js');
+const foresterExplorer = require("forester-explorer");
+const foresterAuth = require("forester-auth");
 
-app.use(require('./auth/auth'));
+//project items
+const collections = [
+  require('./json/collections/join-articles-authors.json'),
+  require('./json/collections/authors.json'),
+  require('./json/collections/categories.json'),
+  require('./json/collections/articles.json'),
+  require('./json/collections/comments.json'),
+  require('./json/collections/profiles.json')
+];
+const dataSources = [
+  require('./json/db1.json')
+];
+const mappings = require('./json/mappings.json');
 
-app.registerConfig(require('./json/config.json'));
-app.registerCollection(require('./json/join-articles-authors.json'));
-app.registerCollection(require('./json/collections/authors.json'));
-app.registerCollection(require('./json/collections/categories.json'));
-app.registerCollection(require('./json/collections/articles.json'));
-app.registerCollection(require('./json/collections/comments.json'));
-app.registerCollection(require('./json/collections/profiles.json'));
 
-app.registerDataSource(require('./json/db1.json'));
+//init forester
+let app = new Forester();
+
+//add plugins
+app.use(foresterExplorer());
+app.use(foresterAuth({jwt: {secret: "change_me"}}));
+
+//register project items
+app.registerCollections(collections);
+app.registerDataSources(dataSources);
 app.registerMappings(require('./json/mappings.json'));
 
-
+//boot
 app.boot()
   .then(() => {
-  app.listen({port: 3000});
+    app.listen({port: 3000});
   })
   .catch((e) => {
     console.log(e.stack)
-});
+  });
 
 
 
