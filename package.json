@@ -2,7 +2,7 @@
   "name": "forester",
   "version": "0.3.4",
   "description": "Rest API",
-  "main": "build/forester.js",
+  "main": "index.js",
   "scripts": {
     "prepublish": "npm run clean && npm run-script clean && npm run-script build",
     "clean": "rm -rf ./build && mkdir ./build",
@@ -32,6 +32,7 @@
     "forester-auth": "^0.1.4"
   },
   "dependencies": {
+    "babel-polyfill": "^6.3.14",
     "es6-error": "^2.0.2",
     "koa": "2.0.0-alpha.3",
     "koa-bodyparser": "^3.0.0",
