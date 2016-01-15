@@ -12,10 +12,13 @@ const collections = [
   require('./json/collections/categories.json'),
   require('./json/collections/articles.json'),
   require('./json/collections/comments.json'),
-  require('./json/collections/profiles.json')
+  require('./json/collections/profiles.json'),
+  require('./json/collections/artists.json')
+
 ];
 const dataSources = [
-  require('./json/db1.json')
+  require('./json/db1.json'),
+  require('./json/db2.json')
 ];
 const mappings = require('./json/mappings.json');
 

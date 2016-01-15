@@ -1,0 +1,19 @@
+{
+  "name": "artists",
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "surname":{
+      "type": "string",
+      "required": true
+    }
+  },
+  "defender": [
+    {
+      "action": "*",
+      "check": "skip"
+    }
+  ]
+}

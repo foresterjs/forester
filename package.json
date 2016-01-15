@@ -39,12 +39,13 @@
     "koa-compose": "^3.0.0",
     "koa-convert": "^1.2.0",
     "koa-mount": "git://github.com/koajs/mount.git#7796702a36e6ef6b62c8eae13a234fbf0d974873",
-    "koa-send": "^3.1.0",
     "koa-qs": "^2.0.0",
+    "koa-send": "^3.1.0",
     "koa-simple-router": "^0.2.0",
     "koa-static": "^1.4.3",
     "mschema": "^0.5.5",
     "promised-mongo": "^1.2.0",
+    "tingodb": "^0.4.2",
     "traverse": "^0.6.6"
   },
   "babel": {
