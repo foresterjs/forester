@@ -1,12 +1,30 @@
 {
   "name": "categories",
   "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "userId": {
+      "type": "string",
+      "required": true
+    }
   },
   "defender": [
     {
-      "action": ["find", "pick"],
+      "action": [
+        "find",
+        "pick"
+      ],
       "check": "isOwner",
       "property": "userId"
+    },
+    {
+      "action": [
+        "create",
+        "update"
+      ],
+      "check": "skip"
     }
   ]
 }
