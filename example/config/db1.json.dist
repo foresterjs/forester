@@ -1,0 +1,7 @@
+{
+  "name": "db1",
+  "adapter": "mongo",
+  "options": {
+    "connectionUri": "mongodb://localhost:27017/forester"
+  }
+}

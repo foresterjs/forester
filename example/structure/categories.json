@@ -5,25 +5,14 @@
       "type": "string",
       "required": true
     },
-    "userId": {
+    "content":{
       "type": "string",
       "required": true
     }
   },
   "defender": [
     {
-      "action": [
-        "find",
-        "pick"
-      ],
-      "check": "isOwner",
-      "property": "userId"
-    },
-    {
-      "action": [
-        "create",
-        "update"
-      ],
+      "action": "*",
       "check": "skip"
     }
   ]

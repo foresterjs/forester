@@ -1,11 +1,11 @@
 {
-  "name": "artists",
+  "name": "comments",
   "properties": {
-    "name": {
+    "date": {
       "type": "string",
       "required": true
     },
-    "surname":{
+    "content":{
       "type": "string",
       "required": true
     }

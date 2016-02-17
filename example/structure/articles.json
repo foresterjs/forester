@@ -1,0 +1,118 @@
+{
+  "name": "articles",
+  "properties": {
+    "date": {
+      "type": "string",
+      "required": true
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "content": {
+      "type": "string",
+      "required": true,
+      "default": ""
+    },
+    "draft": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "authorID": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "relations": {
+    "author": {
+      "type": "belongsTo",
+      "collection": "users",
+      "foreignKey": "authorID"
+    },
+    "categories": {
+      "type": "hasAndBelongsToMany",
+      "collection": "categories",
+      "through": "joinArticlesCategories",
+      "key": "articleID",
+      "foreignKey": "categoryID"
+    },
+    "comments": {
+      "type": "hasMany",
+      "collection": "comments",
+      "foreignKey": "articleID"
+    }
+  },
+  "defender": [
+    {
+      "action": [
+        "find",
+        "pick"
+      ],
+      "check": "skip"
+    },
+    {
+      "action": [
+        "create",
+        "update",
+        "destroy"
+      ],
+      "check": "isOwner",
+      "property": "authorID"
+    },
+    {
+      "action": [
+        "create",
+        "update",
+        "destroy"
+      ],
+      "check": "isA",
+      "roles": ["blogger"]
+    },
+    {
+      "relation": "author",
+      "action": [
+        "pick"
+      ],
+      "check": "skip"
+    },
+    {
+      "relation": "categories",
+      "action": [
+        "find"
+      ],
+      "check": "skip"
+    },
+    {
+      "relation": "categories",
+      "action": [
+        "addAssociation",
+        "destroyAssociation"
+      ],
+      "check": "skip"
+    },
+    {
+      "relation": "comments",
+      "action": [
+        "find",
+        "pick"
+      ],
+      "check": "skip"
+    },
+    {
+      "relation": "comments",
+      "action": [
+        "create"
+      ],
+      "check": "isOwner"
+    },
+    {
+      "relation": "comments",
+      "action": [
+        "update",
+        "destroy"
+      ],
+      "check": "halt"
+    }
+  ]
+}

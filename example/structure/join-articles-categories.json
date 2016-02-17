@@ -1,0 +1,19 @@
+{
+  "name": "joinArticlesCategories",
+  "properties": {
+    "articleID": {
+      "type": "numeric",
+      "required": true
+    },
+    "categoryID": {
+      "type": "numeric",
+      "required": true
+    }
+  },
+  "defender": [
+    {
+      "action": "*",
+      "check": "skip"
+    }
+  ]
+}

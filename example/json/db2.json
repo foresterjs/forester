@@ -1,8 +1,0 @@
-{
-  "name": "db2",
-  "adapter": "tingodb",
-  "options": {
-    "path": "./tmp",
-    "memStore": true
-  }
-}

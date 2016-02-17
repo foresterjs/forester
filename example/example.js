@@ -7,20 +7,16 @@ const foresterAuth = require("forester-auth");
 
 //project items
 const collections = [
-  require('./json/collections/join-articles-authors.json'),
-  require('./json/collections/authors.json'),
-  require('./json/collections/categories.json'),
-  require('./json/collections/articles.json'),
-  require('./json/collections/comments.json'),
-  require('./json/collections/profiles.json'),
-  require('./json/collections/artists.json')
-
+  require('./structure/articles.json'),
+  require('./structure/categories.json'),
+  require('./structure/comments.json'),
+  require('./structure/join-articles-categories.json')
 ];
 const dataSources = [
-  require('./json/db1.json'),
-  require('./json/db2.json')
+  require('./config/db1.json')
 ];
-const mappings = require('./json/mappings.json');
+const mappings = require('./structure/mappings.json');
+const authConfig = require('./config/auth.json');
 
 
 //init forester
@@ -28,12 +24,12 @@ let app = new Forester();
 
 //add plugins
 app.use(foresterExplorer());
-app.use(foresterAuth({jwt: {secret: "change_me"}}));
+app.use(foresterAuth(authConfig));
 
 //register project items
 app.registerCollections(collections);
 app.registerDataSources(dataSources);
-app.registerMappings(require('./json/mappings.json'));
+app.registerMappings(mappings);
 
 //boot
 app.boot()

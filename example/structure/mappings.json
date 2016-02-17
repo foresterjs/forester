@@ -1,0 +1,26 @@
+[
+  {
+    "collection": "_users",
+    "datasource": "db1"
+  },
+  {
+    "collection": "_tokens",
+    "datasource": "db1"
+  },
+  {
+    "collection": "articles",
+    "datasource": "db1"
+  },
+  {
+    "collection": "categories",
+    "datasource": "db1"
+  },
+  {
+    "collection": "comments",
+    "datasource": "db1"
+  },
+  {
+    "collection": "joinArticlesCategories",
+    "datasource": "db1"
+  }
+]
