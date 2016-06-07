@@ -9,7 +9,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var Collection = require('./collection');
 var Rest = require('./rest');
 var Defender = require('./defender');
-var DataSourceMongo = require('./data-source-mongo');
+var DataSourceMongo = require('./data-sources/mongo');
+var DataSourceTingoDB = require('./data-sources/tingo');
 var koa = require('koa');
 var router = require('koa-simple-router');
 var convert = require('koa-convert');
@@ -28,8 +29,11 @@ var Forester = (function () {
     this.collections = {};
     this.dataSources = {};
     this.mappings = [];
-    this.dataSourceDrivers = {
-      'mongo': DataSourceMongo
+    this.dataSourceAdapters = {
+      'mongo': DataSourceMongo,
+      'mongodb': DataSourceMongo,
+      'tingo': DataSourceTingoDB,
+      'tingodb': DataSourceTingoDB
     };
 
     this.koa = new koa();
@@ -45,7 +49,7 @@ var Forester = (function () {
       var adapter = _ref.adapter;
       var options = _ref.options;
 
-      var driver = this.dataSourceDrivers[adapter];
+      var driver = this.dataSourceAdapters[adapter];
       if (!driver) throw new Error(adapter + ' is not supported');
 
       return this.dataSources[name] = new driver(options);
@@ -58,7 +62,10 @@ var Forester = (function () {
   }, {
     key: 'registerCollection',
     value: function registerCollection(collectionSchema) {
-      return this.collections[collectionSchema.name] = new Collection({ collectionSchema: collectionSchema });
+      return this.collections[collectionSchema.name] = new Collection({
+        collectionSchema: collectionSchema,
+        collections: this.collections
+      });
     }
   }, {
     key: 'registerCollections',
@@ -86,42 +93,32 @@ var Forester = (function () {
 
       assert(path, "Path not defined");
 
-      var failbackMiddleware = convert(regeneratorRuntime.mark(function _callee() {
+      var failbackMiddleware = convert(regeneratorRuntime.mark(function _callee(next) {
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                if (!this.body) {
-                  _context.next = 2;
+                if (!(this.body || this.path.substring(1, 4) === "api")) {
+                  _context.next = 4;
                   break;
                 }
 
+                _context.next = 3;
+                return next;
+
+              case 3:
                 return _context.abrupt('return');
 
-              case 2:
-                _context.prev = 2;
-                _context.next = 5;
+              case 4:
+                _context.next = 6;
                 return koaSend(this, failback, { root: path });
 
-              case 5:
-                _context.next = 10;
-                break;
-
-              case 7:
-                _context.prev = 7;
-                _context.t0 = _context['catch'](2);
-
-                console.log(_context.t0);
-
-              case 10:
-                console.log(this.body);
-
-              case 11:
+              case 6:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, this, [[2, 7]]);
+        }, _callee, this);
       }));
 
       var serveMiddleware = convert(serve(path));
@@ -144,9 +141,9 @@ var Forester = (function () {
       Defender.registerCheckMethod(name, middleware);
     }
   }, {
-    key: 'registerDataSourceDriver',
-    value: function registerDataSourceDriver(name, driver) {
-      this.dataSourceDrivers[name] = driver;
+    key: 'registerDataSourceAdapter',
+    value: function registerDataSourceAdapter(name, driver) {
+      this.dataSourceAdapters[name] = driver;
     }
   }, {
     key: 'initCollections',
@@ -176,48 +173,23 @@ var Forester = (function () {
   }, {
     key: 'boot',
     value: (function () {
-      var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee3() {
-        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+      var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee2() {
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
 
                 this.initCollections();
                 this.rest.boot();
 
-                this.koa.use(router(function (_) {
-                  _.get('/', (function () {
-                    var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee2(ctx, next) {
-                      return regeneratorRuntime.wrap(function _callee2$(_context2) {
-                        while (1) {
-                          switch (_context2.prev = _context2.next) {
-                            case 0:
-                              ctx.body = ['Hello! This is Forester!'];
-                              _context2.next = 3;
-                              return next();
-
-                            case 3:
-                            case 'end':
-                              return _context2.stop();
-                          }
-                        }
-                      }, _callee2, this);
-                    }));
-
-                    return function (_x, _x2) {
-                      return ref.apply(this, arguments);
-                    };
-                  })());
-                }));
-
                 console.log("Forester is ready!");
 
-              case 4:
+              case 3:
               case 'end':
-                return _context3.stop();
+                return _context2.stop();
             }
           }
-        }, _callee3, this);
+        }, _callee2, this);
       }));
 
       return function boot() {

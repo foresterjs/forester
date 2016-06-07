@@ -113,19 +113,20 @@ function pick(_ref4) {
       var request = _ref5.request;
       var response = _ref5.response;
       var params = _ref5.params;
-      var id, item;
+      var id, include, item;
       return regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
               id = params.id;
+              include = request.query.include || {};
 
               response.body = response.body || {};
 
-              _context2.next = 4;
-              return collection.pick(id);
+              _context2.next = 5;
+              return collection.pick(id, { include: include });
 
-            case 4:
+            case 5:
               item = _context2.sent;
 
               if (item) {
@@ -136,10 +137,10 @@ function pick(_ref4) {
                 response.body.errors = ['not_found'];
               }
 
-              _context2.next = 8;
+              _context2.next = 9;
               return next();
 
-            case 8:
+            case 9:
             case 'end':
               return _context2.stop();
           }

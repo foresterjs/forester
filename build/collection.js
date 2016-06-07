@@ -8,6 +8,8 @@ var _validator2 = _interopRequireDefault(_validator);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } step("next"); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -20,6 +22,7 @@ var Collection = (function () {
   function Collection(_ref) {
     var dataSource = _ref.dataSource;
     var collectionSchema = _ref.collectionSchema;
+    var collections = _ref.collections;
 
     _classCallCheck(this, Collection);
 
@@ -30,6 +33,7 @@ var Collection = (function () {
 
     this.dataSource = dataSource;
     this.collectionSchema = collectionSchema;
+    this.collections = collections;
     this.eventEmitter = new EventEmitter();
 
     this.sanitizer = new Sanitizer(this.schema.properties);
@@ -51,6 +55,7 @@ var Collection = (function () {
         var columns = _ref2.columns;
         var page = _ref2.page;
         var perPage = _ref2.perPage;
+        var include = _ref2.include;
         var options,
             items,
             _args = arguments;
@@ -70,11 +75,23 @@ var Collection = (function () {
               case 6:
                 items = _context.sent;
 
+                if (!include) {
+                  _context.next = 11;
+                  break;
+                }
+
+                _context.next = 10;
+                return this.solveInclude(items, include);
+
+              case 10:
+                items = _context.sent;
+
+              case 11:
                 this.eventEmitter.emit('findAll:after', options, items);
 
                 return _context.abrupt('return', items);
 
-              case 9:
+              case 13:
               case 'end':
                 return _context.stop();
             }
@@ -90,6 +107,9 @@ var Collection = (function () {
     key: 'pick',
     value: (function () {
       var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee2(id) {
+        var _ref3 = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+        var include = _ref3.include;
         var item;
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
@@ -102,11 +122,23 @@ var Collection = (function () {
               case 3:
                 item = _context2.sent;
 
+                if (!(item && include)) {
+                  _context2.next = 8;
+                  break;
+                }
+
+                _context2.next = 7;
+                return this.solveInclude(item, include);
+
+              case 7:
+                item = _context2.sent;
+
+              case 8:
                 this.eventEmitter.emit('pick:after', id, item);
 
                 return _context2.abrupt('return', item);
 
-              case 6:
+              case 10:
               case 'end':
                 return _context2.stop();
             }
@@ -114,7 +146,7 @@ var Collection = (function () {
         }, _callee2, this);
       }));
 
-      return function pick(_x2) {
+      return function pick(_x2, _x3) {
         return ref.apply(this, arguments);
       };
     })()
@@ -162,7 +194,7 @@ var Collection = (function () {
         }, _callee3, this);
       }));
 
-      return function create(_x3) {
+      return function create(_x5) {
         return ref.apply(this, arguments);
       };
     })()
@@ -210,7 +242,7 @@ var Collection = (function () {
         }, _callee4, this);
       }));
 
-      return function update(_x4, _x5) {
+      return function update(_x6, _x7) {
         return ref.apply(this, arguments);
       };
     })()
@@ -242,7 +274,7 @@ var Collection = (function () {
         }, _callee5, this);
       }));
 
-      return function destroy(_x6) {
+      return function destroy(_x8) {
         return ref.apply(this, arguments);
       };
     })()
@@ -273,7 +305,7 @@ var Collection = (function () {
         }, _callee6, this);
       }));
 
-      return function exists(_x7) {
+      return function exists(_x9) {
         return ref.apply(this, arguments);
       };
     })()
@@ -302,18 +334,53 @@ var Collection = (function () {
         }, _callee7, this);
       }));
 
-      return function count(_x8) {
+      return function count(_x10) {
         return ref.apply(this, arguments);
       };
     })()
   }, {
-    key: 'bulkUpdate',
+    key: 'findOrPickThroughRelation',
     value: (function () {
-      var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee8(change, where) {
+      var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee8(item, relation) {
+        var relationsSchema, relationSchema, type, foreignKey, foreignCollection, relationsMethods;
         return regeneratorRuntime.wrap(function _callee8$(_context8) {
           while (1) {
             switch (_context8.prev = _context8.next) {
               case 0:
+                relationsSchema = this.schema.relations;
+                relationSchema = relationsSchema[relation];
+                type = relationSchema.type;
+                foreignKey = relationSchema.foreignKey;
+                foreignCollection = this.collections[relationSchema.collection];
+                relationsMethods = {
+                  belongsTo: function belongsTo() {
+                    var id = item[foreignKey];
+                    return id ? foreignCollection.pick(id) : {};
+                  },
+                  hasMany: function hasMany() {
+                    var where = _defineProperty({}, foreignKey, item.id);
+                    return foreignCollection.findAll({ where: where });
+                  },
+                  hasOne: function hasOne() {
+                    //TODO
+                    throw new Error('not implemented yet');
+                  },
+                  hasAndBelongsToMany: function hasAndBelongsToMany() {
+                    //TODO
+                    throw new Error('not implemented yet');
+                  },
+                  hasManyThrough: function hasManyThrough() {
+                    //TODO
+                    throw new Error('not implemented yet');
+                  }
+                };
+                _context8.next = 8;
+                return relationsMethods[type]();
+
+              case 8:
+                return _context8.abrupt('return', _context8.sent);
+
+              case 9:
               case 'end':
                 return _context8.stop();
             }
@@ -321,20 +388,68 @@ var Collection = (function () {
         }, _callee8, this);
       }));
 
-      return function bulkUpdate(_x10, _x11) {
+      return function findOrPickThroughRelation(_x12, _x13) {
         return ref.apply(this, arguments);
       };
     })()
   }, {
-    key: 'bulkDestroy',
-
-    //TODO
+    key: 'solveInclude',
     value: (function () {
-      var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee9(where) {
+      var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee9(item, include) {
+        var j, i, relation;
         return regeneratorRuntime.wrap(function _callee9$(_context9) {
           while (1) {
             switch (_context9.prev = _context9.next) {
               case 0:
+                if (!Array.isArray(item)) {
+                  _context9.next = 9;
+                  break;
+                }
+
+                j = 0;
+
+              case 2:
+                if (!(j < item.length)) {
+                  _context9.next = 8;
+                  break;
+                }
+
+                _context9.next = 5;
+                return this.solveInclude(item[j], include);
+
+              case 5:
+                j++;
+                _context9.next = 2;
+                break;
+
+              case 8:
+                return _context9.abrupt('return', item);
+
+              case 9:
+                i = 0;
+
+              case 10:
+                if (!(i < include.length)) {
+                  _context9.next = 18;
+                  break;
+                }
+
+                relation = include[i];
+                _context9.next = 14;
+                return this.findOrPickThroughRelation(item, relation);
+
+              case 14:
+                item[relation] = _context9.sent;
+
+              case 15:
+                i++;
+                _context9.next = 10;
+                break;
+
+              case 18:
+                return _context9.abrupt('return', item);
+
+              case 19:
               case 'end':
                 return _context9.stop();
             }
@@ -342,14 +457,12 @@ var Collection = (function () {
         }, _callee9, this);
       }));
 
-      return function bulkDestroy(_x12) {
+      return function solveInclude(_x14, _x15) {
         return ref.apply(this, arguments);
       };
     })()
   }, {
     key: 'on',
-
-    //TODO
     value: function on(event, callback) {
       this.eventEmitter.on(event, callback);
     }

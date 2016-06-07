@@ -392,4 +392,4 @@ var DataSourceMongo = (function () {
 })();
 
 module.exports = DataSourceMongo;
-//# sourceMappingURL=data-source-mongo.js.map
+//# sourceMappingURL=mongo.js.map
