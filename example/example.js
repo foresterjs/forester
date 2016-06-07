@@ -4,6 +4,7 @@
 const Forester = require('./../lib/forester.js');
 const foresterExplorer = require("forester-explorer");
 const foresterAuth = require("forester-auth");
+const path = require("path");
 
 //project items
 const collections = [
@@ -30,6 +31,7 @@ app.use(foresterAuth(authConfig));
 app.registerCollections(collections);
 app.registerDataSources(dataSources);
 app.registerMappings(mappings);
+app.registerStaticRoute({route:"/", path: path.join(__dirname, "public"), failback: "index.html"});
 
 //boot
 app.boot()
