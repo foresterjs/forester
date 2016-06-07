@@ -4,8 +4,8 @@
   "description": "Rest API",
   "main": "index.js",
   "scripts": {
-    "prepublish": "npm run clean && npm run-script clean && npm run-script build",
-    "clean": "rm -rf ./build && mkdir ./build",
+    "version": "npm run clean && npm run build && git add -A build",
+    "clean": "rm -r ./build && mkdir ./build",
     "build": "babel -d ./build ./lib -s",
     "example": "nodemon example/example.js"
   },
