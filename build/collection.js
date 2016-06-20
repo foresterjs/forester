@@ -65,8 +65,8 @@ var Collection = (function () {
               case 0:
                 options = _args[0];
 
-                options.page = options.page || this.defaults.page;
-                options.perPage = options.perPage || this.defaults.perPage;
+                options.page = parseInt(options.page) || this.defaults.page;
+                options.perPage = parseInt(options.perPage) || this.defaults.perPage;
 
                 this.eventEmitter.emit('findAll:before', options);
                 _context.next = 6;

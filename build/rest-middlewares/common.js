@@ -71,7 +71,7 @@ function showCount(_ref3) {
               return collection.count();
 
             case 3:
-              response.body.count = _context2.sent;
+              response.body.collectionCount = _context2.sent;
               _context2.next = 6;
               return next();
 
@@ -97,37 +97,41 @@ function showPagesCount(_ref5) {
       var request = _ref6.request;
       var response = _ref6.response;
       var params = _ref6.params;
-      var count, perPage;
+      var query, count, perPage;
       return regeneratorRuntime.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
+              query = request.query || {};
 
               response.body = response.body || {};
 
-              _context3.t0 = response.body.count;
-
-              if (_context3.t0) {
-                _context3.next = 6;
+              if (!query.hasOwnProperty("where")) {
+                _context3.next = 8;
                 break;
               }
 
               _context3.next = 5;
-              return collection.count();
+              return collection.count(query.where);
 
             case 5:
-              _context3.t0 = _context3.sent;
+              count = _context3.sent;
+              _context3.next = 9;
+              break;
 
-            case 6:
-              count = _context3.t0;
+            case 8:
+              count = response.body.collectionCount;
+
+            case 9:
               perPage = request.query.perPage || collection.defaults.perPage;
 
               response.body.pages = Math.ceil(count / perPage);
+              response.body.count = count;
 
-              _context3.next = 11;
+              _context3.next = 14;
               return next();
 
-            case 11:
+            case 14:
             case "end":
               return _context3.stop();
           }

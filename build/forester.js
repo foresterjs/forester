@@ -214,7 +214,7 @@ var Forester = (function () {
             reject(err);
             return;
           }
-
+          console.log("Listening " + port);
           resolve();
         });
       });
