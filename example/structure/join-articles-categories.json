@@ -2,11 +2,11 @@
   "name": "joinArticlesCategories",
   "properties": {
     "articleID": {
-      "type": "numeric",
+      "type": "string",
       "required": true
     },
     "categoryID": {
-      "type": "numeric",
+      "type": "string",
       "required": true
     }
   },

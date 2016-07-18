@@ -23,7 +23,7 @@
   "relations": {
     "author": {
       "type": "belongsTo",
-      "collection": "users",
+      "collection": "_users",
       "foreignKey": "authorID"
     },
     "categories": {

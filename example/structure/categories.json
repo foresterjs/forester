@@ -5,13 +5,27 @@
       "type": "string",
       "required": true
     },
-    "content":{
+    "content": {
       "type": "string",
       "required": true
     }
   },
+  "relations": {
+    "articles": {
+      "type": "hasAndBelongsToMany",
+      "collection": "articles",
+      "through": "joinArticlesCategories",
+      "key": "categoryID",
+      "foreignKey": "articleID"
+    }
+  },
   "defender": [
     {
+      "action": "*",
+      "check": "skip"
+    },
+    {
+      "relation": "articles",
       "action": "*",
       "check": "skip"
     }
