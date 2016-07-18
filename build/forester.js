@@ -1,8 +1,8 @@
 'use strict';
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } step("next"); }); }; }
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { return step("next", value); }, function (err) { return step("throw", err); }); } } return step("next"); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -22,7 +22,7 @@ var assert = require("assert");
 var compose = require("koa-compose");
 var koaSend = require("koa-send");
 
-var Forester = (function () {
+var Forester = function () {
   function Forester() {
     _classCallCheck(this, Forester);
 
@@ -90,6 +90,7 @@ var Forester = (function () {
       var route = _ref2$route === undefined ? "/" : _ref2$route;
       var path = _ref2.path;
       var failback = _ref2.failback;
+
 
       assert(path, "Path not defined");
 
@@ -172,8 +173,8 @@ var Forester = (function () {
     }
   }, {
     key: 'boot',
-    value: (function () {
-      var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee2() {
+    value: function () {
+      var _ref4 = _asyncToGenerator(regeneratorRuntime.mark(function _callee2() {
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
@@ -192,10 +193,12 @@ var Forester = (function () {
         }, _callee2, this);
       }));
 
-      return function boot() {
-        return ref.apply(this, arguments);
-      };
-    })()
+      function boot() {
+        return _ref4.apply(this, arguments);
+      }
+
+      return boot;
+    }()
   }, {
     key: 'use',
     value: function use(plugin) {
@@ -203,10 +206,10 @@ var Forester = (function () {
     }
   }, {
     key: 'listen',
-    value: function listen(_ref4) {
+    value: function listen(_ref5) {
       var _this2 = this;
 
-      var port = _ref4.port;
+      var port = _ref5.port;
 
       return new Promise(function (resolve, reject) {
         _this2.server = _this2.koa.listen(port, function (err) {
@@ -238,7 +241,7 @@ var Forester = (function () {
   }]);
 
   return Forester;
-})();
+}();
 
 module.exports = Forester;
 //# sourceMappingURL=forester.js.map

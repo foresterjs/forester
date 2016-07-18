@@ -9,13 +9,14 @@ exports.create = create;
 exports.update = update;
 exports.destroy = destroy;
 
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } step("next"); }); }; }
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { return step("next", value); }, function (err) { return step("throw", err); }); } } return step("next"); }); }; }
 
 var commonMiddlewares = require('./common');
 var ValidationFail = require('../validation-fail');
 
 module.exports = function (rest, _ref) {
   var collection = _ref.collection;
+
 
   rest.registerEndpoint({
     action: "find",
@@ -66,10 +67,10 @@ module.exports = function (rest, _ref) {
 function findAll(_ref2) {
   var collection = _ref2.collection;
 
-  return (function () {
-    var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(_ref3, next) {
-      var request = _ref3.request;
-      var response = _ref3.response;
+  return function () {
+    var _ref3 = _asyncToGenerator(regeneratorRuntime.mark(function _callee(_ref4, next) {
+      var request = _ref4.request;
+      var response = _ref4.response;
       var options, items;
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
@@ -84,6 +85,7 @@ function findAll(_ref2) {
 
             case 4:
               items = _context.sent;
+
 
               response.body.data = items;
               response.body.done = true;
@@ -100,19 +102,19 @@ function findAll(_ref2) {
     }));
 
     return function (_x, _x2) {
-      return ref.apply(this, arguments);
+      return _ref3.apply(this, arguments);
     };
-  })();
+  }();
 }
 
-function pick(_ref4) {
-  var collection = _ref4.collection;
+function pick(_ref5) {
+  var collection = _ref5.collection;
 
-  return (function () {
-    var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee2(_ref5, next) {
-      var request = _ref5.request;
-      var response = _ref5.response;
-      var params = _ref5.params;
+  return function () {
+    var _ref6 = _asyncToGenerator(regeneratorRuntime.mark(function _callee2(_ref7, next) {
+      var request = _ref7.request;
+      var response = _ref7.response;
+      var params = _ref7.params;
       var id, include, item;
       return regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
@@ -128,6 +130,7 @@ function pick(_ref4) {
 
             case 5:
               item = _context2.sent;
+
 
               if (item) {
                 response.body.data = item;
@@ -149,24 +152,25 @@ function pick(_ref4) {
     }));
 
     return function (_x3, _x4) {
-      return ref.apply(this, arguments);
+      return _ref6.apply(this, arguments);
     };
-  })();
+  }();
 }
 
-function create(_ref6) {
-  var collection = _ref6.collection;
+function create(_ref8) {
+  var collection = _ref8.collection;
 
-  return (function () {
-    var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee3(_ref7, next) {
-      var request = _ref7.request;
-      var response = _ref7.response;
+  return function () {
+    var _ref9 = _asyncToGenerator(regeneratorRuntime.mark(function _callee3(_ref10, next) {
+      var request = _ref10.request;
+      var response = _ref10.response;
       var data, item;
       return regeneratorRuntime.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
               data = request.body;
+
 
               response.body = response.body || {};
 
@@ -215,19 +219,19 @@ function create(_ref6) {
     }));
 
     return function (_x5, _x6) {
-      return ref.apply(this, arguments);
+      return _ref9.apply(this, arguments);
     };
-  })();
+  }();
 }
 
-function update(_ref8) {
-  var collection = _ref8.collection;
+function update(_ref11) {
+  var collection = _ref11.collection;
 
-  return (function () {
-    var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee4(_ref9, next) {
-      var request = _ref9.request;
-      var response = _ref9.response;
-      var params = _ref9.params;
+  return function () {
+    var _ref12 = _asyncToGenerator(regeneratorRuntime.mark(function _callee4(_ref13, next) {
+      var request = _ref13.request;
+      var response = _ref13.response;
+      var params = _ref13.params;
       var id, data, item;
       return regeneratorRuntime.wrap(function _callee4$(_context4) {
         while (1) {
@@ -244,6 +248,7 @@ function update(_ref8) {
 
             case 6:
               item = _context4.sent;
+
 
               if (item) {
                 response.body.data = item;
@@ -289,19 +294,19 @@ function update(_ref8) {
     }));
 
     return function (_x7, _x8) {
-      return ref.apply(this, arguments);
+      return _ref12.apply(this, arguments);
     };
-  })();
+  }();
 }
 
-function destroy(_ref10) {
-  var collection = _ref10.collection;
+function destroy(_ref14) {
+  var collection = _ref14.collection;
 
-  return (function () {
-    var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee5(_ref11, next) {
-      var request = _ref11.request;
-      var response = _ref11.response;
-      var params = _ref11.params;
+  return function () {
+    var _ref15 = _asyncToGenerator(regeneratorRuntime.mark(function _callee5(_ref16, next) {
+      var request = _ref16.request;
+      var response = _ref16.response;
+      var params = _ref16.params;
       var id, result;
       return regeneratorRuntime.wrap(function _callee5$(_context5) {
         while (1) {
@@ -316,6 +321,7 @@ function destroy(_ref10) {
 
             case 4:
               result = _context5.sent;
+
 
               response.body.done = result;
 
@@ -333,8 +339,8 @@ function destroy(_ref10) {
     }));
 
     return function (_x9, _x10) {
-      return ref.apply(this, arguments);
+      return _ref15.apply(this, arguments);
     };
-  })();
+  }();
 }
 //# sourceMappingURL=crud.js.map

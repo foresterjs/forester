@@ -1,6 +1,6 @@
 'use strict';
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _validator = require('./validator');
 
@@ -10,7 +10,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } step("next"); }); }; }
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { return step("next", value); }, function (err) { return step("throw", err); }); } } return step("next"); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -18,7 +18,7 @@ var EventEmitter = require('events');
 var Sanitizer = require('./sanitizer');
 var Defender = require('./defender');
 
-var Collection = (function () {
+var Collection = function () {
   function Collection(_ref) {
     var dataSource = _ref.dataSource;
     var collectionSchema = _ref.collectionSchema;
@@ -48,14 +48,14 @@ var Collection = (function () {
     }
   }, {
     key: 'findAll',
-    value: (function () {
-      var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(_ref2) {
-        var where = _ref2.where;
-        var orderBy = _ref2.orderBy;
-        var columns = _ref2.columns;
-        var page = _ref2.page;
-        var perPage = _ref2.perPage;
-        var include = _ref2.include;
+    value: function () {
+      var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee(_ref3) {
+        var where = _ref3.where;
+        var orderBy = _ref3.orderBy;
+        var columns = _ref3.columns;
+        var page = _ref3.page;
+        var perPage = _ref3.perPage;
+        var include = _ref3.include;
         var options,
             items,
             _args = arguments;
@@ -64,6 +64,7 @@ var Collection = (function () {
             switch (_context.prev = _context.next) {
               case 0:
                 options = _args[0];
+
 
                 options.page = parseInt(options.page) || this.defaults.page;
                 options.perPage = parseInt(options.perPage) || this.defaults.perPage;
@@ -99,17 +100,19 @@ var Collection = (function () {
         }, _callee, this);
       }));
 
-      return function findAll(_x) {
-        return ref.apply(this, arguments);
-      };
-    })()
+      function findAll(_x) {
+        return _ref2.apply(this, arguments);
+      }
+
+      return findAll;
+    }()
   }, {
     key: 'pick',
-    value: (function () {
-      var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee2(id) {
-        var _ref3 = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+    value: function () {
+      var _ref4 = _asyncToGenerator(regeneratorRuntime.mark(function _callee2(id) {
+        var _ref5 = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 
-        var include = _ref3.include;
+        var include = _ref5.include;
         var item;
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
@@ -146,14 +149,16 @@ var Collection = (function () {
         }, _callee2, this);
       }));
 
-      return function pick(_x2, _x3) {
-        return ref.apply(this, arguments);
-      };
-    })()
+      function pick(_x2, _x3) {
+        return _ref4.apply(this, arguments);
+      }
+
+      return pick;
+    }()
   }, {
     key: 'create',
-    value: (function () {
-      var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee3(data) {
+    value: function () {
+      var _ref6 = _asyncToGenerator(regeneratorRuntime.mark(function _callee3(data) {
         var validation, item;
         return regeneratorRuntime.wrap(function _callee3$(_context3) {
           while (1) {
@@ -194,14 +199,16 @@ var Collection = (function () {
         }, _callee3, this);
       }));
 
-      return function create(_x5) {
-        return ref.apply(this, arguments);
-      };
-    })()
+      function create(_x5) {
+        return _ref6.apply(this, arguments);
+      }
+
+      return create;
+    }()
   }, {
     key: 'update',
-    value: (function () {
-      var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee4(id, data) {
+    value: function () {
+      var _ref7 = _asyncToGenerator(regeneratorRuntime.mark(function _callee4(id, data) {
         var validation, item;
         return regeneratorRuntime.wrap(function _callee4$(_context4) {
           while (1) {
@@ -242,14 +249,16 @@ var Collection = (function () {
         }, _callee4, this);
       }));
 
-      return function update(_x6, _x7) {
-        return ref.apply(this, arguments);
-      };
-    })()
+      function update(_x6, _x7) {
+        return _ref7.apply(this, arguments);
+      }
+
+      return update;
+    }()
   }, {
     key: 'destroy',
-    value: (function () {
-      var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee5(id) {
+    value: function () {
+      var _ref8 = _asyncToGenerator(regeneratorRuntime.mark(function _callee5(id) {
         var result;
         return regeneratorRuntime.wrap(function _callee5$(_context5) {
           while (1) {
@@ -274,14 +283,16 @@ var Collection = (function () {
         }, _callee5, this);
       }));
 
-      return function destroy(_x8) {
-        return ref.apply(this, arguments);
-      };
-    })()
+      function destroy(_x8) {
+        return _ref8.apply(this, arguments);
+      }
+
+      return destroy;
+    }()
   }, {
     key: 'exists',
-    value: (function () {
-      var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee6(id) {
+    value: function () {
+      var _ref9 = _asyncToGenerator(regeneratorRuntime.mark(function _callee6(id) {
         var exists;
         return regeneratorRuntime.wrap(function _callee6$(_context6) {
           while (1) {
@@ -305,14 +316,16 @@ var Collection = (function () {
         }, _callee6, this);
       }));
 
-      return function exists(_x9) {
-        return ref.apply(this, arguments);
-      };
-    })()
+      function exists(_x9) {
+        return _ref9.apply(this, arguments);
+      }
+
+      return exists;
+    }()
   }, {
     key: 'count',
-    value: (function () {
-      var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee7() {
+    value: function () {
+      var _ref10 = _asyncToGenerator(regeneratorRuntime.mark(function _callee7() {
         var where = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
         var count;
         return regeneratorRuntime.wrap(function _callee7$(_context7) {
@@ -334,14 +347,16 @@ var Collection = (function () {
         }, _callee7, this);
       }));
 
-      return function count(_x10) {
-        return ref.apply(this, arguments);
-      };
-    })()
+      function count(_x10) {
+        return _ref10.apply(this, arguments);
+      }
+
+      return count;
+    }()
   }, {
     key: 'findOrPickThroughRelation',
-    value: (function () {
-      var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee8(item, relation) {
+    value: function () {
+      var _ref11 = _asyncToGenerator(regeneratorRuntime.mark(function _callee8(item, relation) {
         var relationsSchema, relationSchema, type, foreignKey, foreignCollection, relationsMethods;
         return regeneratorRuntime.wrap(function _callee8$(_context8) {
           while (1) {
@@ -388,14 +403,16 @@ var Collection = (function () {
         }, _callee8, this);
       }));
 
-      return function findOrPickThroughRelation(_x12, _x13) {
-        return ref.apply(this, arguments);
-      };
-    })()
+      function findOrPickThroughRelation(_x12, _x13) {
+        return _ref11.apply(this, arguments);
+      }
+
+      return findOrPickThroughRelation;
+    }()
   }, {
     key: 'solveInclude',
-    value: (function () {
-      var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee9(item, include) {
+    value: function () {
+      var _ref12 = _asyncToGenerator(regeneratorRuntime.mark(function _callee9(item, include) {
         var j, i, relation;
         return regeneratorRuntime.wrap(function _callee9$(_context9) {
           while (1) {
@@ -457,10 +474,12 @@ var Collection = (function () {
         }, _callee9, this);
       }));
 
-      return function solveInclude(_x14, _x15) {
-        return ref.apply(this, arguments);
-      };
-    })()
+      function solveInclude(_x14, _x15) {
+        return _ref12.apply(this, arguments);
+      }
+
+      return solveInclude;
+    }()
   }, {
     key: 'on',
     value: function on(event, callback) {
@@ -479,7 +498,7 @@ var Collection = (function () {
   }]);
 
   return Collection;
-})();
+}();
 
 module.exports = Collection;
 //# sourceMappingURL=collection.js.map

@@ -1,6 +1,6 @@
 'use strict';
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -14,7 +14,7 @@ var checkMethods = {
   halt: require('./defender-middlewares/halt')
 };
 
-var Defender = (function () {
+var Defender = function () {
   function Defender(collection) {
     _classCallCheck(this, Defender);
 
@@ -57,6 +57,7 @@ var Defender = (function () {
     value: function acl(action) {
       var relation = arguments.length <= 1 || arguments[1] === undefined ? "__collection" : arguments[1];
 
+
       if (!this.middlewares[relation]) {
         return compose([checkMethods.halt()]);
       }
@@ -79,7 +80,7 @@ var Defender = (function () {
   }]);
 
   return Defender;
-})();
+}();
 
 module.exports = Defender;
 //# sourceMappingURL=defender.js.map

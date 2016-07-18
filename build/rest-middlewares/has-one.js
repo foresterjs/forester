@@ -5,12 +5,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.pick = pick;
 
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } step("next"); }); }; }
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { return step("next", value); }, function (err) { return step("throw", err); }); } } return step("next"); }); }; }
 
 module.exports = function (rest, _ref) {
   var collections = _ref.collections;
   var collection = _ref.collection;
   var relation = _ref.relation;
+
 
   var foreignCollection = collections[relation.collection];
   var foreignKey = relation.foreignKey;
@@ -31,11 +32,11 @@ function pick(_ref2) {
   var foreignCollection = _ref2.foreignCollection;
   var foreignKey = _ref2.foreignKey;
 
-  return (function () {
-    var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(_ref3, next) {
-      var request = _ref3.request;
-      var response = _ref3.response;
-      var params = _ref3.params;
+  return function () {
+    var _ref3 = _asyncToGenerator(regeneratorRuntime.mark(function _callee(_ref4, next) {
+      var request = _ref4.request;
+      var response = _ref4.response;
+      var params = _ref4.params;
       var id, options, items;
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
@@ -99,8 +100,8 @@ function pick(_ref2) {
     }));
 
     return function (_x, _x2) {
-      return ref.apply(this, arguments);
+      return _ref3.apply(this, arguments);
     };
-  })();
+  }();
 }
 //# sourceMappingURL=has-one.js.map

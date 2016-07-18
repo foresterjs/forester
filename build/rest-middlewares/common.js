@@ -8,16 +8,16 @@ exports.showCount = showCount;
 exports.showPagesCount = showPagesCount;
 exports.showUser = showUser;
 
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } step("next"); }); }; }
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { return step("next", value); }, function (err) { return step("throw", err); }); } } return step("next"); }); }; }
 
 function showSchema(_ref) {
   var collection = _ref.collection;
 
-  return (function () {
-    var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(_ref2, next) {
-      var request = _ref2.request;
-      var response = _ref2.response;
-      var params = _ref2.params;
+  return function () {
+    var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee(_ref3, next) {
+      var request = _ref3.request;
+      var response = _ref3.response;
+      var params = _ref3.params;
       var schema;
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
@@ -27,6 +27,7 @@ function showSchema(_ref) {
               response.body = response.body || {};
 
               schema = collection.schema;
+
 
               response.body.schema = {
                 name: schema.name,
@@ -47,19 +48,19 @@ function showSchema(_ref) {
     }));
 
     return function (_x, _x2) {
-      return ref.apply(this, arguments);
+      return _ref2.apply(this, arguments);
     };
-  })();
+  }();
 }
 
-function showCount(_ref3) {
-  var collection = _ref3.collection;
+function showCount(_ref4) {
+  var collection = _ref4.collection;
 
-  return (function () {
-    var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee2(_ref4, next) {
-      var request = _ref4.request;
-      var response = _ref4.response;
-      var params = _ref4.params;
+  return function () {
+    var _ref5 = _asyncToGenerator(regeneratorRuntime.mark(function _callee2(_ref6, next) {
+      var request = _ref6.request;
+      var response = _ref6.response;
+      var params = _ref6.params;
       return regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
@@ -84,25 +85,26 @@ function showCount(_ref3) {
     }));
 
     return function (_x3, _x4) {
-      return ref.apply(this, arguments);
+      return _ref5.apply(this, arguments);
     };
-  })();
+  }();
 }
 
-function showPagesCount(_ref5) {
-  var collection = _ref5.collection;
+function showPagesCount(_ref7) {
+  var collection = _ref7.collection;
 
-  return (function () {
-    var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee3(_ref6, next) {
-      var request = _ref6.request;
-      var response = _ref6.response;
-      var params = _ref6.params;
+  return function () {
+    var _ref8 = _asyncToGenerator(regeneratorRuntime.mark(function _callee3(_ref9, next) {
+      var request = _ref9.request;
+      var response = _ref9.response;
+      var params = _ref9.params;
       var query, count, perPage;
       return regeneratorRuntime.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
               query = request.query || {};
+
 
               response.body = response.body || {};
 
@@ -125,6 +127,7 @@ function showPagesCount(_ref5) {
             case 9:
               perPage = request.query.perPage || collection.defaults.perPage;
 
+
               response.body.pages = Math.ceil(count / perPage);
               response.body.count = count;
 
@@ -140,19 +143,19 @@ function showPagesCount(_ref5) {
     }));
 
     return function (_x5, _x6) {
-      return ref.apply(this, arguments);
+      return _ref8.apply(this, arguments);
     };
-  })();
+  }();
 }
 
-function showUser(_ref7) {
-  var collection = _ref7.collection;
+function showUser(_ref10) {
+  var collection = _ref10.collection;
 
-  return (function () {
-    var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee4(_ref8, next) {
-      var request = _ref8.request;
-      var response = _ref8.response;
-      var user = _ref8.user;
+  return function () {
+    var _ref11 = _asyncToGenerator(regeneratorRuntime.mark(function _callee4(_ref12, next) {
+      var request = _ref12.request;
+      var response = _ref12.response;
+      var user = _ref12.user;
       return regeneratorRuntime.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
@@ -174,8 +177,8 @@ function showUser(_ref7) {
     }));
 
     return function (_x7, _x8) {
-      return ref.apply(this, arguments);
+      return _ref11.apply(this, arguments);
     };
-  })();
+  }();
 }
 //# sourceMappingURL=common.js.map

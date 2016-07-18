@@ -8,7 +8,7 @@ exports.checkData = checkData;
 exports.postCheckItem = postCheckItem;
 exports.checkStoredData = checkStoredData;
 
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } step("next"); }); }; }
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { return step("next", value); }, function (err) { return step("throw", err); }); } } return step("next"); }); }; }
 
 module.exports = function (rule, collection) {
 
@@ -37,11 +37,11 @@ module.exports = function (rule, collection) {
 
 function checkWhere(rule) {
 
-  return (function () {
-    var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(_ref, next) {
-      var user = _ref.user;
-      var request = _ref.request;
-      var response = _ref.response;
+  return function () {
+    var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(_ref2, next) {
+      var user = _ref2.user;
+      var request = _ref2.request;
+      var response = _ref2.response;
       var userId;
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
@@ -57,6 +57,7 @@ function checkWhere(rule) {
 
             case 3:
               userId = user.id;
+
 
               request.query = request.query || {};
               request.query.where = request.query.where || {};
@@ -82,17 +83,17 @@ function checkWhere(rule) {
     }));
 
     return function (_x, _x2) {
-      return ref.apply(this, arguments);
+      return _ref.apply(this, arguments);
     };
-  })();
+  }();
 }
 
 function checkData(rule) {
-  return (function () {
-    var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee2(_ref2, next) {
-      var user = _ref2.user;
-      var request = _ref2.request;
-      var response = _ref2.response;
+  return function () {
+    var _ref3 = _asyncToGenerator(regeneratorRuntime.mark(function _callee2(_ref4, next) {
+      var user = _ref4.user;
+      var request = _ref4.request;
+      var response = _ref4.response;
       var userId;
       return regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
@@ -133,18 +134,18 @@ function checkData(rule) {
     }));
 
     return function (_x3, _x4) {
-      return ref.apply(this, arguments);
+      return _ref3.apply(this, arguments);
     };
-  })();
+  }();
 }
 
 function postCheckItem(rule) {
-  return (function () {
-    var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee3(_ref3, next) {
-      var body = _ref3.body;
-      var request = _ref3.request;
-      var response = _ref3.response;
-      var user = _ref3.user;
+  return function () {
+    var _ref5 = _asyncToGenerator(regeneratorRuntime.mark(function _callee3(_ref6, next) {
+      var body = _ref6.body;
+      var request = _ref6.request;
+      var response = _ref6.response;
+      var user = _ref6.user;
       var userId;
       return regeneratorRuntime.wrap(function _callee3$(_context3) {
         while (1) {
@@ -179,19 +180,19 @@ function postCheckItem(rule) {
     }));
 
     return function (_x5, _x6) {
-      return ref.apply(this, arguments);
+      return _ref5.apply(this, arguments);
     };
-  })();
+  }();
 }
 
 function checkStoredData(rule, collection) {
-  return (function () {
-    var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee4(_ref4, next) {
-      var body = _ref4.body;
-      var request = _ref4.request;
-      var response = _ref4.response;
-      var params = _ref4.params;
-      var user = _ref4.user;
+  return function () {
+    var _ref7 = _asyncToGenerator(regeneratorRuntime.mark(function _callee4(_ref8, next) {
+      var body = _ref8.body;
+      var request = _ref8.request;
+      var response = _ref8.response;
+      var params = _ref8.params;
+      var user = _ref8.user;
       var userId, id, item;
       return regeneratorRuntime.wrap(function _callee4$(_context4) {
         while (1) {
@@ -246,8 +247,8 @@ function checkStoredData(rule, collection) {
     }));
 
     return function (_x7, _x8) {
-      return ref.apply(this, arguments);
+      return _ref7.apply(this, arguments);
     };
-  })();
+  }();
 }
 //# sourceMappingURL=is-owner.js.map
